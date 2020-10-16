@@ -1,0 +1,177 @@
+<div class="card prescription">
+  <div class="loading" *ngIf="loading">
+    <img src="../../../../../assets/images/loader.gif" alt="" />
+  </div>
+  <div class="card-header">
+    <h4>General Prescription</h4>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="ePrescriptionForm">
+      <h5>Diagnosis</h5>
+      <div class="form-group">
+        <label>Remarks</label>
+        <input
+          type="text"
+          formControlName="remarks"
+          class="form-control form-control-solid form-control-lg"
+          placeholder="Remarks"
+        />
+      </div>
+      <h5 class="d-flex align-items-center justify-content-between">
+        <span>General Medicines</span>
+        <button class="btn btn-light-primary" (click)="addAnother()">
+          <i class="fas fa-plus"></i>
+        </button>
+      </h5>
+      <div formArrayName="general_medicines">
+        <div
+          class="prescription__divider"
+          *ngFor="
+            let control of ePrescriptionForm['controls'].general_medicines[
+              'controls'
+            ];
+            let idx = index
+          "
+        >
+          <a
+            href="javascript:;"
+            placement="right"
+            ngbTooltip="Remove this section"
+            *ngIf="idx > 0"
+            (click)="removeAnother()"
+          >
+            <img src="../../../../../assets/icons/cross-green.svg" alt="" />
+          </a>
+          <div class="form-row" formGroupName="{{ idx }}">
+            <div class="form-group col-md-4">
+              <label>Name</label>
+              <input
+                type="text"
+                formControlName="name"
+                class="form-control form-control-solid form-control-lg"
+              />
+            </div>
+            <div class="form-group col-md-3">
+              <label>Dose</label>
+              <div class="row">
+                <div class="col-4 pr-1">
+                  <input
+                    type="text"
+                    (keydown)="numericValidator($event)"
+                    formControlName="morning"
+                    minlength="1"
+                    maxlength="3"
+                    class="form-control form-control-solid form-control-lg"
+                  />
+                </div>
+                <div class="col-4 pl-1 pr-1">
+                  <input
+                    type="text"
+                    (keydown)="numericValidator($event)"
+                    formControlName="afternoon"
+                    minlength="1"
+                    maxlength="3"
+                    class="form-control form-control-solid form-control-lg"
+                  />
+                </div>
+                <div class="col-4 pl-1">
+                  <input
+                    type="text"
+                    (keydown)="numericValidator($event)"
+                    formControlName="evening"
+                    minlength="1"
+                    maxlength="3"
+                    class="form-control form-control-solid form-control-lg"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-2">
+              <label>Duration</label>
+              <input
+                type="text"
+                formControlName="duration"
+                class="form-control form-control-solid form-control-lg"
+              />
+            </div>
+            <div class="form-group col-md-3">
+              <label>Instruction</label>
+              <input
+                type="text"
+                formControlName="instructions"
+                class="form-control form-control-solid form-control-lg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h5>Lab Tests</h5>
+      <div formArrayName="lab_tests">
+        <div
+          class="prescription__divider"
+          *ngFor="
+            let control of ePrescriptionForm['controls'].lab_tests['controls'];
+            let idx = index
+          "
+        >
+          <div class="form-row" formGroupName="{{ idx }}">
+            <div class="form-group col-md-5">
+              <label>Name</label>
+              <input
+                type="text"
+                formControlName="name"
+                class="form-control form-control-solid form-control-lg"
+              />
+            </div>
+            <div class="form-group col-md-7">
+              <label>Instructions</label>
+              <input
+                type="text"
+                formControlName="instructions"
+                class="form-control form-control-solid form-control-lg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <h5>Notes</h5>
+      <div class="form-group">
+        <label>Notes</label>
+        <textarea
+          name=""
+          id=""
+          cols="30"
+          rows="10"
+          formControlName="notes"
+          class="form-control form-control-solid form-control-lg"
+        ></textarea>
+      </div>
+      <div class="d-flex justify-content-center">
+        <button
+          (click)="close()"
+          type="button"
+          class="btn btn-lg btn-light-danger mr-2 width-7"
+        >
+          Cancel
+        </button>
+        <button
+          *ngIf="data"
+          (click)="delete()"
+          type="button"
+          class="btn btn-lg btn-light-danger mr-2 width-7"
+        >
+          Delete
+        </button>
+        <button
+          [disabled]="ePrescriptionForm.invalid"
+          type="button"
+          class="btn btn-lg btn-light-primary width-7"
+          (click)="submit()"
+        >
+          {{ data ? "Update" : "Send" }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

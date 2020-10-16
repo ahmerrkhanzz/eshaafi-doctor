@@ -1,0 +1,108 @@
+@import "../../../../../assets/scss/_variables.scss";
+
+.card {
+  position: relative;
+  &-body {
+    background-image: url("../../../../../assets/images/bg-login.jpg");
+    background-position: inherit;
+    border-radius: 0.42rem;
+    display: flex;
+    justify-content: center;
+    .close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+    }
+    h5 {
+      border-bottom: 1px dashed $text-grey;
+      padding-bottom: 0.5rem;
+    }
+    .form-container {
+      width: 100%;
+      text-align: center;
+      font-size: 1rem;
+      &-title {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        margin-bottom: 2rem;
+        align-items: center;
+        h3 {
+          font-size: 1.5rem;
+          color: $text-purple;
+          font-weight: 500;
+          margin-bottom: 0.8rem;
+        }
+        p {
+          color: $text-muted;
+        }
+        img {
+          margin-bottom: 1.8rem;
+          width: 10rem;
+        }
+      }
+      &-signup {
+        text-align: center;
+        margin-top: 2rem;
+        font-size: 1rem;
+        a {
+          color: $text-muted;
+          margin-left: 0.5rem;
+          font-weight: 500;
+          transition: all 0.5s ease;
+          &:hover {
+            color: $color-primary;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+    ::ng-deep .wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .otp-input {
+        background-color: $wave-grey;
+        border-color: $wave-grey;
+        font-size: 1.5rem;
+        font-family: "Poppins", sans-serif;
+        padding: 0.5rem;
+      }
+    }
+  }
+  .prescription__divider {
+    border-bottom: 1px dashed $border-grey;
+    margin-bottom: 2rem;
+    position: relative;
+    > a {
+      display: flex;
+      position: absolute;
+      right: -2rem;
+      z-index: 9;
+      top: -1.7rem;
+      img {
+        width: 1.5rem;
+      }
+    }
+  }
+}
+
+::ng-deep .modal-content {
+  border: none;
+  background-color: transparent;
+}
+
+::ng-deep .modal {
+  &-backdrop {
+    // background-image: url("../../../assets/images/bg-login.jpg");
+    // &.show {
+    //   opacity: 1;
+    // }
+  }
+  &-dialog {
+    display: flex;
+    // height: 100vh;
+    align-items: center;
+  }
+}

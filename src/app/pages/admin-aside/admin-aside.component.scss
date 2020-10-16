@@ -1,0 +1,51 @@
+@import "../../../assets/scss/_variables.scss";
+
+.navaside {
+  box-shadow: 0 0 28px 0 rgba(82, 63, 105, 0.08);
+  height: 100%;
+  background: #fff;
+  .list-group-item {
+    background: #fff;
+    font-size: 0.8rem;
+    border: none;
+    padding: 0;
+    a {
+      transition: all ease 1s;
+      display: flex;
+      align-items: center;
+      padding: 1rem 1.25rem;
+      color: $text-dark;
+      font-size: 1rem;
+      i {
+        color: $text-muted;
+        transition: all ease 1s;
+      }
+      &:hover, &.active {
+        text-decoration: none;
+        background: $wave-grey;
+        color: $color-primary;
+        i {
+          color: $color-primary;
+        }
+      }
+    }
+  }
+  &-header {
+    background: $light-grey;
+    color: $text-purple;
+    padding: 1.5rem;
+    img {
+      width: 100%;
+      max-width: 4rem;
+    }
+    h4 {
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .navaside {
+    display: none;
+  }
+}

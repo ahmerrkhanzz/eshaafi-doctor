@@ -1,0 +1,11 @@
+<div class="container consultations">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="loading" *ngIf="loading">
+        <span class="mr-2">Fetching appointments, please wait ... </span>
+        <img src="../../../assets/images/loader.gif" alt="" />
+      </div>
+      <app-appointments-table *ngIf="appointments.length" [data]="appointments" [page]="page" [total]="total" (isAddDoctor)="addDoctorEmitter($event)" (recallAppointments)="recallAppointments($event)"></app-appointments-table>
+    </div>
+  </div>
+</div>

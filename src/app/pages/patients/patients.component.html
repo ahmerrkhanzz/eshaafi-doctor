@@ -1,0 +1,20 @@
+<div class="d-flex flex-column-fluid">
+    <div class="container patients">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="loading" *ngIf="loading">
+              <img src="../../../../assets/images/loader.gif" alt="" />
+            </div>
+            <app-custom-table
+              [tableConstructor]="tableConstructor"
+              (actionEmitter)="actionEmitter($event)"
+              (editEmitter)="editEmitter($event)"
+              (pageChange)="pageChangeHandler($event)"
+            ></app-custom-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

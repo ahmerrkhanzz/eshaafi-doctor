@@ -1,0 +1,92 @@
+@import "../../../assets/scss/_variables.scss";
+
+.card {
+  position: relative;
+  &-body {
+    background-image: url("../../../assets/images/bg-login.jpg");
+    background-position: center;
+    border-radius: 0.42rem;
+    display: flex;
+    padding: 5rem;
+    justify-content: center;
+    height: 100vh;
+    .close{
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+    }
+    .form-container {
+      width: 28rem;
+      &-title {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        margin-bottom: 6rem;
+        align-items: center;
+        padding-top: 5rem;
+        h3{
+          font-size: 1.5rem;
+          color: $text-purple;
+          font-weight: 500;
+          margin-bottom: 0.8rem;
+          margin-top: 3rem;
+        }
+        p{
+          color: $text-muted;
+        }
+        img{
+          width: 5rem;
+        }
+      }
+      &-signup{
+        text-align: center;
+        margin-top: 2rem;
+        font-size: 1rem;
+        a{
+          color: $text-muted;
+          margin-left: 0.5rem;
+          font-weight: 500;
+          transition: all 0.5s ease;
+          &:hover{
+            color: $color-primary;
+            text-decoration: none;
+          }
+        }
+      }
+      .form-control {
+        background-color: $wave-grey;
+        border-color: $wave-grey;
+        height: 3.5rem;
+        &:focus {
+          border-color: #ebedf3;
+          background-color: #ebedf3;
+        }
+      }
+    }
+    button {
+      margin: 0 auto;
+      padding: 0.6rem 4rem;
+      display: flex;
+    }
+  }
+}
+
+::ng-deep .modal-content {
+  border: none;
+  background-color: transparent;
+}
+
+::ng-deep .modal {
+  &-backdrop {
+    // background-image: url("../../../assets/images/bg-login.jpg");
+    // &.show {
+    //   opacity: 1;
+    // }
+  }
+  &-dialog {
+    display: flex;
+    // height: 100vh;
+    align-items: center;
+  }
+}

@@ -1,0 +1,159 @@
+@import "../../../../assets/scss/_variables.scss";
+.personal {
+  // CALENDAR
+  ::ng-deep.dropdown-menu {
+    background: #fff;
+    border: none;
+    box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);
+    padding-top: 0.7rem;
+    .ngb-dp-header,
+    .ngb-dp-weekdays {
+      background: #fff;
+      border: none;
+      .ngb-dp-arrow {
+        .btn-link {
+          color: $text-grey;
+          padding: 0 0.5rem !important;
+          &:hover {
+            background: $light-grey;
+          }
+          &:focus {
+            outline: 0 !important;
+          }
+          .ngb-dp-navigation-chevron {
+            border-width: 0.1em 0.1em 0 0;
+          }
+        }
+      }
+      select,
+      &:focus {
+        border: none !important;
+      }
+    }
+    .ngb-dp-month {
+      .ngb-dp-week {
+        .ngb-dp-weekday {
+          color: $text-dark;
+          font-weight: 600;
+          font-style: unset !important;
+        }
+        .ngb-dp-day {
+          width: 2.5rem;
+          height: 2.5rem;
+          font-size: 0.9rem !important;
+          .btn-light {
+            color: $text-grey !important;
+            width: 2.5rem !important;
+            height: 2.5rem !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &:hover {
+              background-color: $light-grey;
+              border-color: $light-grey;
+            }
+          }
+          .bg-primary {
+            background-color: $color-primary-light !important;
+            color: $color-primary !important;
+            font-weight: 300;
+          }
+        }
+      }
+    }
+    ::ng-deep .ngb-dp-day,
+    ::ng-deep .ngb-dp-week-number,
+    ::ng-deep .ngb-dp-weekday {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+
+  .custom-multiselect {
+    ::ng-deep .multiselect-dropdown {
+      background-color: $wave-grey;
+      border-color: $wave-grey;
+      height: 2.8rem;
+      border-radius: 0.42rem;
+      .dropdown-btn {
+        padding-left: 1.4em;
+        font-family: inherit;
+        font-size: inherit;
+        font-weight: inherit;
+        height: 2.8rem;
+        display: flex;
+        align-items: center;
+        border: 1px solid $wave-grey;
+        border-radius: 0.42rem;
+        > span:last-child {
+          position: absolute;
+          right: 0.2rem;
+          top: 1.2rem;
+          font-weight: 600;
+          font-size: inherit;
+          color: $text-grey;
+          .dropdown-down,
+          .dropdown-up {
+            display: none;
+          }
+        }
+        .selected-item {
+          background: $color-primary-light;
+          color: $color-primary;
+          border: none;
+          padding: 0.3rem 0.6rem;
+          border-radius: 0.42rem;
+          font-weight: 400;
+          font-size: 0.9rem;
+          &:hover {
+            box-shadow: unset;
+          }
+          a {
+            color: $color-primary !important;
+          }
+        }
+      }
+      .dropdown-list {
+        border: 1px solid $border-grey;
+        box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);
+        .item1 {
+          li:first-child,
+          .filter-textbox {
+            border-bottom: 1px solid $border-grey !important;
+          }
+          .multiselect-item-checkbox {
+            input[type="checkbox"]:checked + div:before {
+              background: $color-primary;
+            }
+            > div {
+              &:before {
+                // background: $color-primary;
+                border-color: $color-primary;
+              }
+            }
+          }
+        }
+        .item2 {
+          .multiselect-item-checkbox {
+            input[type="checkbox"]:checked + div:before {
+              background: $color-primary;
+            }
+            > div {
+              &:before {
+                // background: $color-primary;
+                border-color: $color-primary;
+              }
+            }
+          }
+        }
+      }
+    }
+    .is-invalid {
+      ::ng-deep .multiselect-dropdown {
+        .dropdown-btn {
+          border-color: $color-danger;
+        }
+      }
+    }
+  }
+}

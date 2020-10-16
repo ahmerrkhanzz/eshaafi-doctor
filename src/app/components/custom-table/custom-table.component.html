@@ -1,0 +1,304 @@
+<div class="card-header">
+  <h4>
+    {{ tableConstructor.table }}
+  </h4>
+  <div class="card-header-actions">
+    <input
+      type="input"
+      class="form-control form-control-sm mr-2"
+      placeholder="Search by name..."
+      [(ngModel)]="searchUser"
+    />
+    <!-- <div class="buttons">
+        <div ngbDropdown class="d-inline-block">
+          <button
+            class="btn btn-light-primary"
+            id="dropdownBasic1"
+            ngbDropdownToggle
+          >
+            <i class="fas fa-plus"></i>
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button ngbDropdownItem (click)="addDoctor()">Add Doctor</button>
+            <button ngbDropdownItem>Another Action</button>
+            <button ngbDropdownItem>Something else is here</button>
+          </div>
+        </div>
+      </div> -->
+  </div>
+</div>
+<div class="card-body">
+  <div class="custom-table table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th *ngIf="tableConstructor.showCheckboxes">
+            <label class="checkbox">
+              <input type="checkbox" name="Checkboxes4" />
+              <span></span
+            ></label>
+          </th>
+          <th *ngFor="let header of tableConstructor.headers">{{ header }}</th>
+          <th *ngIf="tableConstructor.showActions">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of tableConstructor.rows">
+          <td *ngIf="tableConstructor.showCheckboxes">
+            <label class="checkbox">
+              <input type="checkbox" name="Checkboxes4" />
+              <span></span
+            ></label>
+          </td>
+          <ng-container
+            *ngIf="tableConstructor.table.toLowerCase() === 'patients'"
+          >
+            <td>
+              <div class="table-span">
+                <div class="d-flex align-items-center">
+                  <div class="table-span-thumb">
+                    <img
+                      *ngIf="
+                        item.patient_image &&
+                        !item.patient_image.includes('no-image')
+                      "
+                      [src]="item.patient_image"
+                      alt="photo"
+                    />
+                    <img
+                      *ngIf="
+                        !item.patient_image ||
+                        item.patient_image.includes('no-image')
+                      "
+                      src="../../../../assets/images/doctor-placeholder.jpg"
+                      alt="photo"
+                    />
+                  </div>
+                  <div class="text-truncate">
+                    <div
+                      placement="top"
+                      ngbTooltip="{{ item.patient_name }}"
+                      class="text-dark-75 text-truncate font-weight-bolder font-size-lg mb-0"
+                    >
+                      {{ item.patient_name }}
+                    </div>
+                    <a
+                      href=mailto:{{item.patient_email}}
+                      class="text-muted text-hover-primary font-weight-bold-500"
+                      >{{ item.patient_email}}</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              {{ item.patient_phone_number || "-" }}
+            </td>
+            <td>
+              {{ item.patient_blood_group || "-" }}
+            </td>
+            <td>
+              {{ item.patient_gender || "-" }}
+            </td>
+            <td>
+              {{ item.patient_city || "-" }}
+            </td>
+            <td>
+              {{ item.patient_height || "-" }}
+            </td>
+            <td>
+              {{ item.patient_weight || "-" }}
+            </td>
+            <td>
+              {{ item.patient_marital_status || "-" }}
+            </td>
+          </ng-container>
+          <td *ngIf="tableConstructor.showActions">
+            <div class="table-actions">
+              <!-- <a
+                  href="javascript:;"
+                  class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2"
+                >
+                  <svg
+                    id="Layer_1"
+                    style="enable-background: new 0 0 64 64;"
+                    version="1.1"
+                    viewBox="0 0 64 64"
+                    xml:space="preserve"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                  >
+                    <style type="text/css">
+                      .st0 {
+                        fill: #b5b5c3;
+                        transition: all 1s ease;
+                      }
+                    </style>
+                    <g>
+                      <g
+                        id="Icon-Eye"
+                        transform="translate(278.000000, 484.000000)"
+                      >
+                        <path
+                          fill="#b5b5c3"
+                          class="st0"
+                          d="M-246-436.6c-16.2,0-23.5-14.3-23.8-14.9c-0.2-0.4-0.2-0.8,0-1.2c0.3-0.6,7.6-14.9,23.8-14.9     s23.5,14.3,23.8,14.9c0.2,0.4,0.2,0.8,0,1.2C-222.5-450.8-229.8-436.6-246-436.6L-246-436.6z M-267.1-452     c1.5,2.6,8.4,12.8,21.1,12.8c12.7,0,19.6-10.2,21.1-12.8c-1.5-2.6-8.4-12.8-21.1-12.8C-258.7-464.8-265.6-454.6-267.1-452     L-267.1-452z"
+                          id="Fill-174"
+                        />
+                        <path
+                          fill="#b5b5c3"
+                          class="st0"
+                          d="M-246-439.4c-7,0-12.6-5.7-12.6-12.6s5.7-12.6,12.6-12.6s12.6,5.7,12.6,12.6     S-239-439.4-246-439.4L-246-439.4z M-246-462c-5.5,0-10,4.5-10,10s4.5,10,10,10s10-4.5,10-10S-240.5-462-246-462L-246-462z"
+                          id="Fill-175"
+                        />
+                        <path
+                          fill="#b5b5c3"
+                          class="st0"
+                          d="M-246-445c-3.8,0-7-3.1-7-7c0-0.7,0.6-1.3,1.3-1.3c0.7,0,1.3,0.6,1.3,1.3     c0,2.4,1.9,4.3,4.3,4.3s4.3-1.9,4.3-4.3s-1.9-4.3-4.3-4.3c-0.7,0-1.3-0.6-1.3-1.3c0-0.7,0.6-1.3,1.3-1.3c3.8,0,7,3.1,7,7     S-242.2-445-246-445"
+                          id="Fill-176"
+                        />
+                      </g>
+                    </g>
+                  </svg>
+                </a> -->
+              <a
+                href="javascript:;"
+                class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2"
+                (click)="editHandler(item)"
+              >
+                <svg
+                  id="Layer_1"
+                  style="enable-background: new 0 0 64 64;"
+                  version="1.1"
+                  viewBox="0 0 64 64"
+                  xml:space="preserve"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                  <style type="text/css">
+                    .st0 {
+                      fill: #b5b5c3;
+                    }
+                  </style>
+                  <g>
+                    <g
+                      id="Icon-Pencil"
+                      transform="translate(179.000000, 382.000000)"
+                    >
+                      <path
+                        class="st0"
+                        d="M-168.2-328l3.7-14.9l22.7-22.7l11.2,11.2l-22.7,22.7L-168.2-328L-168.2-328z M-161.9-341.5     l-2.4,9.6l9.6-2.4l20.2-20.2l-7.2-7.2L-161.9-341.5L-161.9-341.5z"
+                        id="Fill-168"
+                      />
+                      <path
+                        class="st0"
+                        d="M-155.7-332.6c-1-3.9-4-6.9-7.9-7.9l0.7-2.8c4.9,1.2,8.7,5,9.9,9.9L-155.7-332.6"
+                        id="Fill-169"
+                      />
+                      <polyline
+                        class="st0"
+                        id="Fill-170"
+                        points="-156,-338.1 -158,-340.2 -138.1,-360.1 -136.1,-358.1 -156,-338.1    "
+                      />
+                      <path
+                        class="st0"
+                        d="M-166.2-330l4.4-1.1c-0.4-1.6-1.7-2.9-3.3-3.3L-166.2-330"
+                        id="Fill-171"
+                      />
+                      <path
+                        class="st0"
+                        d="M-129.5-355.5l-11.2-11.2l4.5-4.5l0.7,0.1c5.4,0.7,9.7,5,10.4,10.4l0.1,0.7L-129.5-355.5     L-129.5-355.5z M-136.6-366.7l7.2,7.2l1.4-1.4c-0.8-3.6-3.6-6.4-7.2-7.2L-136.6-366.7L-136.6-366.7z"
+                        id="Fill-172"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </a>
+              <a
+                href="javascript:;"
+                class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon"
+                (click)="openConfirmationDialog(item)"
+              >
+                <svg
+                  id="Layer_1"
+                  style="enable-background: new 0 0 64 64;"
+                  version="1.1"
+                  viewBox="0 0 64 64"
+                  xml:space="preserve"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                  <style type="text/css">
+                    .st0 {
+                      fill: #b5b5c3;
+                    }
+                  </style>
+                  <g>
+                    <g
+                      id="Icon-Trash"
+                      transform="translate(232.000000, 228.000000)"
+                    >
+                      <polygon
+                        class="st0"
+                        id="Fill-6"
+                        points="-207.5,-205.1 -204.5,-205.1 -204.5,-181.1 -207.5,-181.1    "
+                      />
+                      <polygon
+                        class="st0"
+                        id="Fill-7"
+                        points="-201.5,-205.1 -198.5,-205.1 -198.5,-181.1 -201.5,-181.1    "
+                      />
+                      <polygon
+                        class="st0"
+                        id="Fill-8"
+                        points="-195.5,-205.1 -192.5,-205.1 -192.5,-181.1 -195.5,-181.1    "
+                      />
+                      <polygon
+                        class="st0"
+                        id="Fill-9"
+                        points="-219.5,-214.1 -180.5,-214.1 -180.5,-211.1 -219.5,-211.1    "
+                      />
+                      <path
+                        class="st0"
+                        d="M-192.6-212.6h-2.8v-3c0-0.9-0.7-1.6-1.6-1.6h-6c-0.9,0-1.6,0.7-1.6,1.6v3h-2.8v-3     c0-2.4,2-4.4,4.4-4.4h6c2.4,0,4.4,2,4.4,4.4V-212.6"
+                        id="Fill-10"
+                      />
+                      <path
+                        class="st0"
+                        d="M-191-172.1h-18c-2.4,0-4.5-2-4.7-4.4l-2.8-36l3-0.2l2.8,36c0.1,0.9,0.9,1.6,1.7,1.6h18     c0.9,0,1.7-0.8,1.7-1.6l2.8-36l3,0.2l-2.8,36C-186.5-174-188.6-172.1-191-172.1"
+                        id="Fill-11"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </a>
+            </div>
+          </td>
+        </tr>
+        <tr *ngIf="!tableConstructor.rows.length">
+          <td colspan="9" class="text-center text-grey">
+            <span>No records found</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div
+  class="card"
+  *ngIf="
+    tableConstructor.rows.length &&
+    tableConstructor.page &&
+    tableConstructor.total
+  "
+>
+  <div class="card-body">
+    <ngb-pagination
+      (pageChange)="pageChangeHandler($event)"
+      [collectionSize]="tableConstructor.total"
+      [page]="tableConstructor.page"
+      [boundaryLinks]="true"
+    ></ngb-pagination>
+  </div>
+</div>

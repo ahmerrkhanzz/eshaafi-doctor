@@ -1,0 +1,44 @@
+@import '../../assets/scss/_variables.scss';
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .col-lg-10{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+} 
+
+
+.isMobile {
+  display: none;
+  position: absolute;
+  top: 0.5rem;
+  left: 2rem;
+  z-index: 1;
+}
+::ng-deep.ngx-nav-drawer a {
+  transition: all ease 1s;
+  display: flex;
+  align-items: center;
+  padding: 0.8rem 1.25rem !important;
+  color: $text-purple !important;
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+  i {
+    color: $text-muted;
+    transition: all ease 1s;
+  }
+  &:hover,
+  &.active {
+    text-decoration: none;
+    background: $wave-grey;
+    color: $color-primary;
+  }
+}
+@media (max-width: 992px) {
+  .isMobile {
+    display: flex;
+  }
+  .isWeb {
+    display: none;
+  }
+}

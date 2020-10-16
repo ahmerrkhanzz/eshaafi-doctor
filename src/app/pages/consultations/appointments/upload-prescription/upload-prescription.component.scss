@@ -1,0 +1,165 @@
+@import "../../../../../assets/scss/variables";
+
+.card {
+  position: relative;
+  &-body {
+    background-position: center;
+    border-radius: 0.42rem;
+    display: flex;
+    padding: 3rem;
+    justify-content: center;
+    .close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+    }
+    .form-container {
+      width: 28rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      .radioButton {
+        align-items: center;
+      }
+      &-title {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        margin-bottom: 3rem;
+        align-items: center;
+        h3 {
+          font-size: 1.5rem;
+          color: $text-purple;
+          font-weight: 500;
+          margin-bottom: 0.8rem;
+        }
+
+        p {
+          color: $text-muted;
+        }
+        img {
+          margin-bottom: 1.8rem;
+          width: 10rem;
+        }
+      }
+      .imageLibrary {
+        .custom-dropzone {
+          border: none !important;
+          img {
+            height: 6rem;
+          }
+        }
+      }
+      .pdfLibrary {
+        ::ng-deep file-upload {
+          outline: none;
+          display: flex;
+          flex-direction: column-reverse;
+          label {
+            file-upload-drop-zone {
+              .upload-text {
+                display: none;
+              }
+              .icon {
+                height: 4rem;
+                width: 4rem;
+                border: none;
+              }
+            }
+          }
+          ::ng-deep .upload-list {
+            margin-top: 6rem;
+            file-upload-list-item {
+              .file-buttons {
+                .remove-btn {
+                  svg {
+                    display: none;
+                  }
+                  button {
+                    padding: 0rem;
+                    border: none;
+                    margin-left: -2rem;
+                  }
+                }
+              }
+            }
+          }
+        }
+        ::ng-deep.upload-input{
+          left: 64% !important;
+        }
+      }
+
+      &-signup {
+        text-align: center;
+        margin-top: 2rem;
+        font-size: 1rem;
+        a {
+          color: $text-muted;
+          margin-left: 0.5rem;
+          font-weight: 500;
+          transition: all 0.5s ease;
+          &:hover {
+            color: $color-primary;
+            text-decoration: none;
+          }
+        }
+      }
+      .image-input {
+        h4 {
+          font-size: 1.2rem;
+          color: $text-purple;
+          font-weight: 500;
+          margin-top: 0.8rem;
+          color: $color-secondary;
+          text-align: center;
+        }
+      }
+
+      .form-control {
+        background-color: $wave-grey;
+        border-color: $wave-grey;
+        height: 3.5rem;
+        &:focus {
+          border-color: #ebedf3;
+          background-color: #ebedf3;
+        }
+      }
+      .prescription{
+        a{
+          font-size: 1.2rem;
+          text-decoration: none;
+        }
+      }
+    }
+    button {
+      margin: 0 auto;
+      padding: 0.6rem 4rem;
+      display: flex;
+    }
+  }
+  &-footer {
+    margin-top: 3rem;
+  }
+}
+
+::ng-deep .modal-content {
+  border: none;
+  background-color: transparent;
+}
+
+::ng-deep .modal {
+  &-backdrop {
+    // background-image: url("../../../assets/images/bg-login.jpg");
+    // &.show {
+    //   opacity: 1;
+    // }
+  }
+  &-dialog {
+    display: flex;
+    // height: 100vh;
+    align-items: center;
+  }
+}

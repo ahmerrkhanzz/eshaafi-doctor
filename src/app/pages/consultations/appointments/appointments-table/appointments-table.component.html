@@ -1,0 +1,268 @@
+<div class="card">
+  <div class="loading" *ngIf="loading">
+    <img src="../../../../../assets/images/loader.gif" alt="" />
+  </div>
+  <div class="card-header">
+    <h4>
+      Online Consultation
+      <small>View your consultations history</small>
+    </h4>
+    <div class="card-header-actions custom-multiselect">
+      <!-- <input type="input" class="form-control form-control-sm mr-2" placeholder="Search..." /> -->
+
+      <ng-multiselect-dropdown
+        ngbtooltip="Select Filters"
+        [settings]="dropdownSettings"
+        [data]="status"
+        (onSelect)="onItemSelect($event)"
+        (onDeSelect)="onItemDeSelect($event)"
+        (onSelectAll)="onSelectAll($event)"
+      >
+      </ng-multiselect-dropdown>
+    </div>
+  </div>
+
+  <!--begin::Body-->
+  <div class="card-body">
+    <!--begin: Datatable-->
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>
+              <label class="checkbox">
+                <input type="checkbox" name="Checkboxes4" />
+                <span></span
+              ></label>
+            </th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Gender</th>
+            <th>Date & Time</th>
+            <th>Fee Status</th>
+            <th>Appointment Status</th>
+            <th>&nbsp; &nbsp; &nbsp; Record &nbsp; &nbsp; &nbsp;</th>
+            <th>Prescription</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let patient of appointments">
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" name="Checkboxes4" />
+                <span></span
+              ></label>
+            </td>
+            <td>
+              <div class="table-span">
+                <div class="d-flex align-items-center">
+                  <div class="table-span-thumb">
+                    <img
+                      *ngIf="
+                        patient.patient_image &&
+                        !patient.patient_image.includes('no-image')
+                      "
+                      [src]="patient.patient_image"
+                      alt="photo"
+                    />
+                    <img
+                      *ngIf="
+                        !patient.patient_image ||
+                        patient.patient_image.includes('no-image')
+                      "
+                      src="../../../../../assets/images/doctor-placeholder.jpg"
+                      alt="photo"
+                    />
+                  </div>
+                  <div class="text-truncate">
+                    <div
+                      placement="top"
+                      ngbTooltip="{{ patient.patient_name }}"
+                      class="text-dark-75 text-truncate font-weight-bolder font-size-lg mb-0"
+                    >
+                      {{ patient.patient_name }}
+                    </div>
+                    <a
+                      href="mailto:{{ patient.patient_email }}"
+                      class="text-muted text-hover-primary font-weight-bold-500"
+                      >{{ patient.patient_email }}</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>{{ patient.patient_phone_number }}</td>
+            <td>{{ patient.patient_gender }}</td>
+            <td>
+              <div class="text-truncate">
+                <div class="text-dark-75 font-size-lg mb-0">
+                  {{ patient.appointment_time }}
+                </div>
+                <p class="text-muted text-hover-primary font-weight-bold-500">
+                  {{ patient.appointment_date }}
+                </p>
+              </div>
+            </td>
+            <td>
+              <div class="text-truncate">
+                <div class="text-dark-75 font-size-lg mb-0">
+                  {{ patient.fee }}
+                </div>
+                <p class="text-muted text-hover-primary font-weight-bold-500">
+                  {{ patient.fee_status }}
+                </p>
+              </div>
+            </td>
+
+            <td>
+              <div class="row">
+                <div class="col">
+                  <div ngbDropdown class="d-inline-block">
+                    <!-- <button class="btn btn-outline-primary" id="appointmentStatusDropdown"
+                      ngbDropdownToggle>Pending</button>
+                    <div ngbDropdownMenu aria-labelledby="appointmentStatusDropdown">
+                      <button *ngFor="let status of this.status" ngbDropdownItem >{{status.item_text}}</button>
+
+                    </div> -->
+                    <!-- [disabled]="patient.appointment_status !== 'pending'" -->
+                    <select
+                      id="peeps"
+                      ngbDropdown
+                      name="people"
+                      class="form-control custom-select"
+                      (change)="changeStatus(patient.appointment_id, $event)"
+                      [(ngModel)]="patient.appointment_status"
+                    >
+                      <option
+                        *ngFor="let status of patient.status"
+                        [value]="status.item_id"
+                        [disabled]="status.disabled"
+                      >
+                        {{ status.item_text }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </td>
+
+            <td>
+              <div class="gallery-wrapper">
+                <ngx-gallery
+                  [options]="galleryOptions"
+                  [images]="patient.patientGalleryImages || galleryImages"
+                  class="ngx-gallery"
+                >
+                </ngx-gallery>
+              </div>
+            </td>
+
+            <td class="d-flex align-items-center justify-content-center">
+              <div class="gallery-wrapper" *ngIf="!patient.is_e_prescribed">
+                <ngx-gallery
+                  [options]="galleryOptions"
+                  [images]="patient.doctorGalleryImages || galleryImages"
+                  class="ngx-gallery"
+                >
+                </ngx-gallery>
+              </div>
+              <a href="javascript:;" (click)="openPDF(patient.appointment_id)" *ngIf="patient.is_e_prescribed"><img src="../../../../../assets/images/pdf-placeholder.png"  alt="" class="img-fluid width-4"></a>
+            </td>
+            <td>
+              <div class="table-actions">
+                <a
+                  (click)="
+                    videoCall(
+                      patient.can_call,
+                      patient.is_expired,
+                      patient.appointment_id
+                    )
+                  "
+                  href="javascript:;"
+                  [ngClass]="{
+                    disabled:
+                      patient.appointment_status !== 'pending' &&
+                      !patient.can_call
+                  }"
+                  class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2"
+                  ngbTooltip="Video Conference"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="23"
+                    height="22"
+                    viewBox="0 0 23 22"
+                  >
+                    <g id="ic_cam" transform="translate(-1717 -390)">
+                      <rect
+                        id="Rectangle_319"
+                        data-name="Rectangle 319"
+                        width="23"
+                        height="22"
+                        rx="3"
+                        transform="translate(1717 390)"
+                        fill="transparent"
+                      />
+                      <path
+                        id="Icon_awesome-video"
+                        data-name="Icon awesome-video"
+                        d="M8.591,4.5H1.221A1.221,1.221,0,0,0,0,5.721v7.37a1.221,1.221,0,0,0,1.221,1.221h7.37a1.221,1.221,0,0,0,1.221-1.221V5.721A1.221,1.221,0,0,0,8.591,4.5Zm4.84.963L10.63,7.4v4.022l2.8,1.929a.819.819,0,0,0,1.288-.659V6.123A.82.82,0,0,0,13.431,5.463Z"
+                        transform="translate(1721.891 392.094)"
+                        fill="#b5b5c3"
+                        class="st0"
+                      />
+                    </g>
+                  </svg>
+                </a>
+                <a
+                  (click)="addPrescription(patient.is_e_prescribed, patient.appointment_id)"
+                  href="javascript:;"
+                  class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2"
+                  ngbTooltip="Add Prescription"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="23"
+                    height="22"
+                    viewBox="0 0 23 22"
+                  >
+                    <g id="ic_edit" transform="translate(-1734 -390)">
+                      <rect
+                        id="Rectangle_318"
+                        data-name="Rectangle 318"
+                        width="23"
+                        height="22"
+                        rx="3"
+                        transform="translate(1734 390)"
+                        fill="transparent"
+                      />
+                      <path
+                        id="Icon_awesome-edit"
+                        data-name="Icon awesome-edit"
+                        d="M9.979,2.067,12.214,4.3a.242.242,0,0,1,0,.342L6.8,10.058l-2.3.255a.482.482,0,0,1-.533-.533l.255-2.3L9.637,2.067A.242.242,0,0,1,9.979,2.067ZM13.994,1.5,12.784.29a.969.969,0,0,0-1.368,0l-.877.877a.242.242,0,0,0,0,.342l2.236,2.236a.242.242,0,0,0,.342,0l.877-.877a.969.969,0,0,0,0-1.368ZM9.518,8.585v2.523H1.586V3.177h5.7a.3.3,0,0,0,.211-.087L8.484,2.1a.3.3,0,0,0-.211-.508H1.19A1.19,1.19,0,0,0,0,2.781v8.725a1.19,1.19,0,0,0,1.19,1.19H9.914a1.19,1.19,0,0,0,1.19-1.19V7.594a.3.3,0,0,0-.508-.211L9.6,8.375A.3.3,0,0,0,9.518,8.585Z"
+                        transform="translate(1739.238 393.705)"
+                        fill="#b5b5c3"
+                        class="st0"
+                      />
+                    </g>
+                  </svg>
+                </a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--end: Datatable-->
+    <div class="card-body-paging" *ngIf="total > 10">
+      <ngb-pagination
+        [collectionSize]="total"
+        [(page)]="page"
+        [boundaryLinks]="true"
+        (pageChange)="getPageFromService()"
+      ></ngb-pagination>
+    </div>
+  </div>
+  <!--end::Body-->
+</div>

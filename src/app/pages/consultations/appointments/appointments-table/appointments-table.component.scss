@@ -1,0 +1,266 @@
+@import "../../../../../assets/scss/variables";
+
+.card {
+  &-header {
+    &-actions {
+      display: flex;
+      .buttons {
+        // min-width: 25rem;
+        .dropdown-menu {
+          padding: 0;
+          border: none;
+          box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);
+          .dropdown-item {
+            padding: 0.5rem 2rem;
+            box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);
+            border-radius: 0.42rem;
+            &:hover {
+              background-color: $color-primary-light;
+              color: $color-primary;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .table {
+    tr > th {
+      font-size: 0.8rem;
+      color: $text-muted;
+      text-transform: uppercase;
+      font-weight: 500;
+      border-bottom: 1px;
+      border-top: none;
+      padding: 0.4rem 0.75rem;
+      vertical-align: middle;
+    }
+    tr > td {
+      padding: 0.7rem 0.75rem;
+      vertical-align: middle;
+      ::ng-deep .switch {
+        background-color: $color-danger !important;
+        &.checked {
+          background-color: $color-primary !important;
+        }
+      }
+      .list-group-item {
+        padding: 0.5rem 0.25rem;
+        border: none;
+        img {
+          width: 2.5rem;
+        }
+      }
+      .dropdown-toggle {
+        border: none !important;
+        color: black;
+        background-color: $light-grey;
+      }
+
+      .gallery-wrapper {
+        text-align: center;
+        height: 4rem !important;
+        :host ::ng-deep .ngx-gallery {
+          display: inline-block;
+          margin-bottom: 20px;
+          &-image {
+            :host ::ng-deep .ngx-gallery-icons {
+              display: none !important;
+            }
+          }
+        }
+        ::ng-deep .ngx-gallery-preview-wrapper .ngx-gallery-preview-text {
+          background: transparent;
+          a {
+            color: #fff;
+          }
+        }
+      }
+    }
+    &-span {
+      .symbol {
+        display: inline-block;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        position: relative;
+        border-radius: 0.42rem;
+        img {
+          width: 100%;
+          max-width: 40px;
+          height: 40px;
+          border-radius: 0.42rem;
+        }
+      }
+      &-thumb {
+        width: 100%;
+        max-width: 40px;
+        height: 40px;
+        overflow: hidden;
+        border-radius: 0.42rem;
+        margin-right: 0.5rem;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+    &-actions {
+      display: flex;
+      a {
+        color: $text-muted;
+        background: $wave-grey;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.2rem;
+        font-size: 0.8rem;
+        svg {
+          width: 1.5rem;
+        }
+        &:hover {
+          background: $color-primary;
+          .st0 {
+            fill: #fff;
+          }
+        }
+      }
+    }
+  }
+  ::ng-deep .pagination {
+    justify-content: flex-end;
+    margin: 1rem 0 0 0;
+    li {
+      margin: 0 0.15rem;
+      &:first-child,
+      &:last-child {
+        a {
+          background: $btn-primary-hover;
+          font-size: 1.2rem;
+          padding: 0.25rem;
+          font-weight: 400;
+          color: #fff;
+        }
+      }
+      .page-link {
+        background: transparent;
+        border: none;
+        color: $text-grey;
+        border-radius: 0.42rem;
+        padding: 0.5rem;
+        min-width: 2rem;
+        text-align: center;
+        height: 2rem;
+        transition: all 1s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover {
+          background: $color-primary;
+          color: #fff;
+        }
+      }
+      &.active {
+        .page-link {
+          background: $color-primary;
+          color: #fff;
+        }
+      }
+    }
+  }
+  .custom-multiselect {
+    ::ng-deep .multiselect-dropdown {
+      background-color: $wave-grey;
+      border-color: $wave-grey;
+
+      border-radius: 0.42rem;
+      .dropdown-btn {
+        padding-left: 1.2em;
+        padding-right: 1.2em;
+        font-family: inherit;
+        font-size: inherit;
+        font-weight: inherit;
+        height: 2.5rem;
+        display: flex;
+        align-items: center;
+        border: 1px solid $wave-grey;
+        border-radius: 0.42rem;
+        background-image: url("../../../../../assets/icons/ic_settings.svg");
+        background-repeat: no-repeat;
+
+        > span:first-child {
+          display: none;
+        }
+
+        > span:last-child {
+          position: absolute;
+          right: 0.2rem;
+          top: 1.2rem;
+          font-weight: 600;
+          font-size: inherit;
+          color: $text-grey;
+          .dropdown-down,
+          .dropdown-up {
+            display: none;
+          }
+        }
+        .selected-item {
+          display: none;
+          background: $color-primary-light;
+          color: $color-primary;
+          border: none;
+          padding: 0.3rem 0.6rem;
+          border-radius: 0.42rem;
+          font-weight: 400;
+          font-size: 0.9rem;
+          &:hover {
+            box-shadow: unset;
+          }
+          a {
+            color: $color-primary !important;
+          }
+        }
+        &:focus {
+          outline: none;
+        }
+      }
+      .dropdown-list {
+        border: 1px solid $border-grey;
+        box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);
+        width: 10rem;
+        left: -8rem;
+        .item1 {
+          display: none;
+          li:first-child,
+          .filter-textbox {
+            border-bottom: 1px solid $border-grey !important;
+          }
+          .multiselect-item-checkbox {
+            input[type="checkbox"]:checked + div:before {
+              background: $color-primary;
+            }
+            > div {
+              &:before {
+                // background: $color-primary;
+                border-color: $color-primary;
+              }
+            }
+          }
+        }
+        .item2 {
+          .multiselect-item-checkbox {
+            input[type="checkbox"]:checked + div:before {
+              background: $color-primary;
+            }
+            > div {
+              &:before {
+                // background: $color-primary;
+                border-color: $color-primary;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,948 @@
+<div class="card video">
+  <div class="loading" *ngIf="loading">
+    <img src="../../../../assets/images/loader.gif" alt="" />
+  </div>
+  <div class="card-header">
+    <h4>
+      Video Consultation
+      <small>Update your video consultation settings</small>
+    </h4>
+    <div class="card-toolbar">
+      <button
+        type="button"
+        class="btn btn-primary btn-lg mr-2"
+        (click)="updateForm()"
+        [disabled]="videoForm.invalid"
+      >
+        Update
+      </button>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-lg-9">
+        <form [formGroup]="videoForm">
+          <div class="form-group row">
+            <label for="" class="col-sm-3 col-form-label">Video Consutation</label>
+            <div class="col-sm-9">
+              <div class="radio-list radio-list-linear">
+                <label class="radio mr-3" for="yes"
+                  >Yes
+                  <input
+                    id="yes"
+                    type="radio"
+                    [value]="true"
+                    name="is_online"
+                    formControlName="is_online"
+                  />
+                  <span class="checkmark"></span>
+                </label>
+                <label class="radio mr-3" for="no"
+                  >No
+                  <input
+                    type="radio"
+                    id="no"
+                    [value]="false"
+                    name="is_online"
+                    formControlName="is_online"
+                  />
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+              <div
+                *ngIf="
+                  videoFormControls.is_online.invalid &&
+                  (videoFormControls.is_online.dirty ||
+                    videoFormControls.is_online.touched)
+                "
+              >
+                <div
+                  *ngIf="videoFormControls.is_online.errors.required"
+                  class="invalid-feedback"
+                >
+                  Please choose
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="" class="col-sm-3 col-form-label">Fee</label>
+            <div class="col-sm-9">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">PKR</div>
+                </div>
+                <input
+                  [class.is-invalid]="
+                    videoFormControls.video_consultation_fee.invalid &&
+                    (videoFormControls.video_consultation_fee.touched || videoFormControls.video_consultation_fee.dirty)
+                  "
+                  [class.is-valid]="
+                    !videoFormControls.video_consultation_fee.invalid &&
+                    (videoFormControls.video_consultation_fee.touched || videoFormControls.video_consultation_fee.dirty)
+                  "
+                  formControlName="video_consultation_fee"
+                  maxlength="4"
+                  minlength="3"
+                  (keydown)="numericValidator($event)"
+                  type="text"
+                  class="form-control form-control-solid"
+                />
+              </div>
+              <div
+                *ngIf="
+                  videoFormControls.video_consultation_fee.invalid &&
+                  (videoFormControls.video_consultation_fee.dirty || videoFormControls.video_consultation_fee.touched)
+                "
+              >
+                <div
+                  *ngIf="videoFormControls.video_consultation_fee.errors.required"
+                  class="invalid-feedback"
+                >
+                  Please provide fee
+                </div>
+                <div
+                  *ngIf="videoFormControls.video_consultation_fee.errors.minlength"
+                  class="invalid-feedback-warning"
+                >
+                  Minimum fee should be 100
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="" class="col-sm-3 col-form-label">Waiting Time</label>
+            <div class="col-sm-9">
+              <select
+                [class.is-invalid]="
+                  videoFormControls.v_c_waiting_time.invalid &&
+                  (videoFormControls.v_c_waiting_time.touched ||
+                    videoFormControls.v_c_waiting_time.dirty)
+                "
+                [class.is-valid]="
+                  !videoFormControls.v_c_waiting_time.invalid &&
+                  (videoFormControls.v_c_waiting_time.touched ||
+                    videoFormControls.v_c_waiting_time.dirty)
+                "
+                formCo
+                class="form-control form-control-solid"
+                formControlName="v_c_waiting_time"
+              >
+                <option selected value="">Choose...</option>
+                <option *ngFor="let time of waitingTime" [value]="time.value">{{
+                  time.value
+                }}</option>
+              </select>
+              <div
+                *ngIf="
+                  videoFormControls.v_c_waiting_time.invalid &&
+                  (videoFormControls.v_c_waiting_time.dirty ||
+                    videoFormControls.v_c_waiting_time.touched)
+                "
+              >
+                <div
+                  *ngIf="
+                    videoFormControls.v_c_waiting_time.invalid &&
+                    (videoFormControls.v_c_waiting_time.dirty ||
+                      videoFormControls.v_c_waiting_time.touched)
+                  "
+                  class="invalid-feedback"
+                >
+                  Please select waitingTime
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="" class="col-sm-3 col-form-label">Email Notification</label>
+            <div class="col-sm-9">
+              <div class="radio-list radio-list-linear">
+                <label class="radio mr-3" for="emailYes"
+                  >Yes
+                  <input
+                    type="radio"
+                    id="emailYes"
+                    [value]="true"
+                    formControlName="emailNotification"
+                    (change)="changeNotificationSetting($event)"
+                    name="emailNotification"
+                  />
+                  <span class="checkmark"></span>
+                </label>
+                <label class="radio mr-3" for="emailNo"
+                  >No
+                  <input
+                    type="radio"
+                    id="emailNo"
+                    [value]="false"
+                    formControlName="emailNotification"
+                    (change)="changeNotificationSetting($event)"
+                    name="emailNotification"
+                  />
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row" formGroupName="availability">
+            <div class="col-sm-12">
+              <p class="text-warning mt-2 mb-1">
+                Note: Please provide time in 24 hours format
+              </p>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Available</th>
+                      <th>Day</th>
+                      <th>Start Time</th>
+                      <th>End Time</th>
+                      <th>Duration</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr formGroupName="monday">
+                      <td>
+                        <label class="checkbox">
+                          <input
+                            type="checkbox"
+                            formControlName="isAvailable"
+                            (ngModelChange)="changeAvailability($event, 'monday')" />
+                          <span></span
+                        ></label>
+                      </td>
+                      <td>
+                        Monday
+                      </td>
+                      <td>
+                        <ngb-timepicker
+                          formControlName="video_start_time"
+                          [spinners]="false"
+                        ></ngb-timepicker>
+                      </td>
+                      <td>
+                        <ngb-timepicker
+                          formControlName="video_end_time"
+                          [spinners]="false"
+                        ></ngb-timepicker>
+                      </td>
+                      <td>
+                        <input
+                          [class.is-invalid]="
+                            videoForm
+                              .get('availability')
+                              .get('monday')
+                              .get('video_duration').invalid &&
+                            (videoForm
+                              .get('availability')
+                              .get('monday')
+                              .get('video_duration').touched ||
+                              videoForm
+                                .get('availability')
+                                .get('monday')
+                                .get('video_duration').dirty)
+                          "
+                          [class.is-valid]="
+                            !videoForm
+                              .get('availability')
+                              .get('monday')
+                              .get('video_duration').invalid &&
+                            (videoForm
+                              .get('availability')
+                              .get('monday')
+                              .get('video_duration').touched ||
+                              videoForm
+                                .get('availability')
+                                .get('monday')
+                                .get('video_duration').dirty)
+                          "
+                          (keydown)="numericValidator($event)"
+                          type="text"
+                          placeholder="30"
+                          maxlength="2"
+                          minlength="2"
+                          formControlName="video_duration"
+                          class="form-control form-control-solid"
+                        />
+                        <div
+                          *ngIf="
+                            videoForm
+                              .get('availability')
+                              .get('monday')
+                              .get('video_duration').invalid &&
+                            (videoForm
+                              .get('availability')
+                              .get('monday')
+                              .get('video_duration').dirty ||
+                              videoForm
+                                .get('availability')
+                                .get('monday')
+                                .get('video_duration').touched)
+                          "
+                        >
+                          <div
+                            *ngIf="
+                              videoForm
+                                .get('availability')
+                                .get('monday')
+                                .get('video_duration').errors.required
+                            "
+                            class="invalid-feedback"
+                          >
+                            Please provide video duration
+                          </div>
+                          <div
+                            *ngIf="
+                              videoForm
+                                .get('availability')
+                                .get('monday')
+                                .get('video_duration').errors.minlength
+                            "
+                            class="invalid-feedback-warning"
+                          >
+                            length should be 2
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr formGroupName="tuesday">
+                      <td>
+                        <label class="checkbox">
+                          <input
+                            type="checkbox"
+                            formControlName="isAvailable"
+                            (ngModelChange)="changeAvailability($event, 'tuesday')" />
+                          <span></span
+                        ></label>
+                      </td>
+                      <td>
+                        Tuesday
+                      </td>
+                      <td>
+                        <ngb-timepicker
+                          formControlName="video_start_time"
+                          [spinners]="false"
+                        ></ngb-timepicker>
+                      </td>
+                      <td>
+                        <ngb-timepicker
+                          formControlName="video_end_time"
+                          [spinners]="false"
+                        ></ngb-timepicker>
+                      </td>
+                      <td>
+                        <input
+                          [class.is-invalid]="
+                            videoForm
+                              .get('availability')
+                              .get('tuesday')
+                              .get('video_duration').invalid &&
+                            (videoForm
+                              .get('availability')
+                              .get('tuesday')
+                              .get('video_duration').touched ||
+                              videoForm
+                                .get('availability')
+                                .get('tuesday')
+                                .get('video_duration').dirty)
+                          "
+                          [class.is-valid]="
+                            !videoForm
+                              .get('availability')
+                              .get('tuesday')
+                              .get('video_duration').invalid &&
+                            (videoForm
+                              .get('availability')
+                              .get('tuesday')
+                              .get('video_duration').touched ||
+                              videoForm
+                                .get('availability')
+                                .get('tuesday')
+                                .get('video_duration').dirty)
+                          "
+                          (keydown)="numericValidator($event)"
+                          type="text"
+                          placeholder="30"
+                          maxlength="2"
+                          minlength="2"
+                          formControlName="video_duration"
+                          class="form-control form-control-solid"
+                        />
+                        <div
+                          *ngIf="
+                            videoForm
+                              .get('availability')
+                              .get('tuesday')
+                              .get('video_duration').invalid &&
+                            (videoForm
+                              .get('availability')
+                              .get('tuesday')
+                              .get('video_duration').dirty ||
+                              videoForm
+                                .get('availability')
+                                .get('tuesday')
+                                .get('video_duration').touched)
+                          "
+                        >
+                          <div
+                            *ngIf="
+                              videoForm
+                                .get('availability')
+                                .get('tuesday')
+                                .get('video_duration').errors.required
+                            "
+                            class="invalid-feedback"
+                          >
+                            Please provide video duration
+                          </div>
+                          <div
+                            *ngIf="
+                              videoForm
+                                .get('availability')
+                                .get('tuesday')
+                                .get('video_duration').errors.minlength
+                            "
+                            class="invalid-feedback-warning"
+                          >
+                            length should be 2
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr formGroupName="wednesday">
+                      <td>
+                        <label class="checkbox">
+                          <input
+                            type="checkbox"
+                            formControlName="isAvailable"
+                            (ngModelChange)="
+                              changeAvailability($event, 'wednesday')
+                            " />
+                          <span></span
+                        ></label>
+                      </td>
+                      <td>
+                        Wednesday
+                      </td>
+                      <td>
+                        <ngb-timepicker
+                          formControlName="video_start_time"
+                          [spinners]="false"
+                        ></ngb-timepicker>
+                      </td>
+                      <td>
+                        <ngb-timepicker
+                          formControlName="video_end_time"
+                          [spinners]="false"
+                        ></ngb-timepicker>
+                      </td>
+                      <td>
+                        <input
+                          [class.is-invalid]="
+                            videoForm
+                              .get('availability')
+                              .get('wednesday')
+                              .get('video_duration').invalid &&
+                            (videoForm
+                              .get('availability')
+                              .get('wednesday')
+                              .get('video_duration').touched ||
+                              videoForm
+                                .get('availability')
+                                .get('wednesday')
+                                .get('video_duration').dirty)
+                          "
+                          [class.is-valid]="
+                            !videoForm
+                              .get('availability')
+                              .get('wednesday')
+                              .get('video_duration').invalid &&
+                            (videoForm
+                              .get('availability')
+                              .get('wednesday')
+                              .get('video_duration').touched ||
+                              videoForm
+                                .get('availability')
+                                .get('wednesday')
+                                .get('video_duration').dirty)
+                          "
+                          (keydown)="numericValidator($event)"
+                          type="text"
+                          placeholder="30"
+                          maxlength="2"
+                          minlength="2"
+                          formControlName="video_duration"
+                          class="form-control form-control-solid"
+                        />
+                        <div
+                          *ngIf="
+                            videoForm
+                              .get('availability')
+                              .get('wednesday')
+                              .get('video_duration').invalid &&
+                            (videoForm
+                              .get('availability')
+                              .get('wednesday')
+                              .get('video_duration').dirty ||
+                              videoForm
+                                .get('availability')
+                                .get('wednesday')
+                                .get('video_duration').touched)
+                          "
+                        >
+                          <div
+                            *ngIf="
+                              videoForm
+                                .get('availability')
+                                .get('wednesday')
+                                .get('video_duration').errors.required
+                            "
+                            class="invalid-feedback"
+                          >
+                            Please provide video duration
+                          </div>
+                          <div
+                            *ngIf="
+                              videoForm
+                                .get('availability')
+                                .get('wednesday')
+                                .get('video_duration').errors.minlength
+                            "
+                            class="invalid-feedback-warning"
+                          >
+                            length should be 2
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr formGroupName="thursday">
+                      <td>
+                        <label class="checkbox">
+                          <input
+                            type="checkbox"
+                            formControlName="isAvailable"
+                            (ngModelChange)="
+                              changeAvailability($event, 'thursday')
+                            " />
+                          <span></span
+                        ></label>
+                      </td>
+                      <td>
+                        Thursday
+                      </td>
+                      <td>
+                        <ngb-timepicker
+                          formControlName="video_start_time"
+                          [spinners]="false"
+                        ></ngb-timepicker>
+                      </td>
+                      <td>
+                        <ngb-timepicker
+                          formControlName="video_end_time"
+                          [spinners]="false"
+                        ></ngb-timepicker>
+                      </td>
+                      <td>
+                        <input
+                          [class.is-invalid]="
+                            videoForm
+                              .get('availability')
+                              .get('thursday')
+                              .get('video_duration').invalid &&
+                            (videoForm
+                              .get('availability')
+                              .get('thursday')
+                              .get('video_duration').touched ||
+                              videoForm
+                                .get('availability')
+                                .get('thursday')
+                                .get('video_duration').dirty)
+                          "
+                          [class.is-valid]="
+                            !videoForm
+                              .get('availability')
+                              .get('thursday')
+                              .get('video_duration').invalid &&
+                            (videoForm
+                              .get('availability')
+                              .get('thursday')
+                              .get('video_duration').touched ||
+                              videoForm
+                                .get('availability')
+                                .get('thursday')
+                                .get('video_duration').dirty)
+                          "
+                          (keydown)="numericValidator($event)"
+                          type="text"
+                          placeholder="30"
+                          maxlength="2"
+                          minlength="2"
+                          formControlName="video_duration"
+                          class="form-control form-control-solid"
+                        />
+                        <div
+                          *ngIf="
+                            videoForm
+                              .get('availability')
+                              .get('thursday')
+                              .get('video_duration').invalid &&
+                            (videoForm
+                              .get('availability')
+                              .get('thursday')
+                              .get('video_duration').dirty ||
+                              videoForm
+                                .get('availability')
+                                .get('thursday')
+                                .get('video_duration').touched)
+                          "
+                        >
+                          <div
+                            *ngIf="
+                              videoForm
+                                .get('availability')
+                                .get('thursday')
+                                .get('video_duration').errors.required
+                            "
+                            class="invalid-feedback"
+                          >
+                            Please provide video duration
+                          </div>
+                          <div
+                            *ngIf="
+                              videoForm
+                                .get('availability')
+                                .get('thursday')
+                                .get('video_duration').errors.minlength
+                            "
+                            class="invalid-feedback-warning"
+                          >
+                            length should be 2
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr formGroupName="friday">
+                      <td>
+                        <label class="checkbox">
+                          <input
+                            type="checkbox"
+                            formControlName="isAvailable"
+                            (ngModelChange)="changeAvailability($event, 'friday')" />
+                          <span></span
+                        ></label>
+                      </td>
+                      <td>
+                        Friday
+                      </td>
+                      <td>
+                        <ngb-timepicker
+                          formControlName="video_start_time"
+                          [spinners]="false"
+                        ></ngb-timepicker>
+                      </td>
+                      <td>
+                        <ngb-timepicker
+                          formControlName="video_end_time"
+                          [spinners]="false"
+                        ></ngb-timepicker>
+                      </td>
+                      <td>
+                        <input
+                          [class.is-invalid]="
+                            videoForm
+                              .get('availability')
+                              .get('friday')
+                              .get('video_duration').invalid &&
+                            (videoForm
+                              .get('availability')
+                              .get('friday')
+                              .get('video_duration').touched ||
+                              videoForm
+                                .get('availability')
+                                .get('friday')
+                                .get('video_duration').dirty)
+                          "
+                          [class.is-valid]="
+                            !videoForm
+                              .get('availability')
+                              .get('friday')
+                              .get('video_duration').invalid &&
+                            (videoForm
+                              .get('availability')
+                              .get('friday')
+                              .get('video_duration').touched ||
+                              videoForm
+                                .get('availability')
+                                .get('friday')
+                                .get('video_duration').dirty)
+                          "
+                          (keydown)="numericValidator($event)"
+                          type="text"
+                          placeholder="30"
+                          maxlength="2"
+                          minlength="2"
+                          formControlName="video_duration"
+                          class="form-control form-control-solid"
+                        />
+                        <div
+                          *ngIf="
+                            videoForm
+                              .get('availability')
+                              .get('friday')
+                              .get('video_duration').invalid &&
+                            (videoForm
+                              .get('availability')
+                              .get('friday')
+                              .get('video_duration').dirty ||
+                              videoForm
+                                .get('availability')
+                                .get('friday')
+                                .get('video_duration').touched)
+                          "
+                        >
+                          <div
+                            *ngIf="
+                              videoForm
+                                .get('availability')
+                                .get('friday')
+                                .get('video_duration').errors.required
+                            "
+                            class="invalid-feedback"
+                          >
+                            Please provide video duration
+                          </div>
+                          <div
+                            *ngIf="
+                              videoForm
+                                .get('availability')
+                                .get('friday')
+                                .get('video_duration').errors.minlength
+                            "
+                            class="invalid-feedback-warning"
+                          >
+                            length should be 2
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr formGroupName="saturday">
+                      <td>
+                        <label class="checkbox">
+                          <input
+                            type="checkbox"
+                            formControlName="isAvailable"
+                            (ngModelChange)="
+                              changeAvailability($event, 'saturday')
+                            " />
+                          <span></span
+                        ></label>
+                      </td>
+                      <td>
+                        Saturday
+                      </td>
+                      <td>
+                        <ngb-timepicker
+                          formControlName="video_start_time"
+                          [spinners]="false"
+                        ></ngb-timepicker>
+                      </td>
+                      <td>
+                        <ngb-timepicker
+                          formControlName="video_end_time"
+                          [spinners]="false"
+                        ></ngb-timepicker>
+                      </td>
+                      <td>
+                        <input
+                          [class.is-invalid]="
+                            videoForm
+                              .get('availability')
+                              .get('saturday')
+                              .get('video_duration').invalid &&
+                            (videoForm
+                              .get('availability')
+                              .get('saturday')
+                              .get('video_duration').touched ||
+                              videoForm
+                                .get('availability')
+                                .get('saturday')
+                                .get('video_duration').dirty)
+                          "
+                          [class.is-valid]="
+                            !videoForm
+                              .get('availability')
+                              .get('saturday')
+                              .get('video_duration').invalid &&
+                            (videoForm
+                              .get('availability')
+                              .get('saturday')
+                              .get('video_duration').touched ||
+                              videoForm
+                                .get('availability')
+                                .get('saturday')
+                                .get('video_duration').dirty)
+                          "
+                          (keydown)="numericValidator($event)"
+                          type="text"
+                          placeholder="30"
+                          maxlength="2"
+                          minlength="2"
+                          formControlName="video_duration"
+                          class="form-control form-control-solid"
+                        />
+                        <div
+                          *ngIf="
+                            videoForm
+                              .get('availability')
+                              .get('saturday')
+                              .get('video_duration').invalid &&
+                            (videoForm
+                              .get('availability')
+                              .get('saturday')
+                              .get('video_duration').dirty ||
+                              videoForm
+                                .get('availability')
+                                .get('saturday')
+                                .get('video_duration').touched)
+                          "
+                        >
+                          <div
+                            *ngIf="
+                              videoForm
+                                .get('availability')
+                                .get('saturday')
+                                .get('video_duration').errors.required
+                            "
+                            class="invalid-feedback"
+                          >
+                            Please provide video duration
+                          </div>
+                          <div
+                            *ngIf="
+                              videoForm
+                                .get('availability')
+                                .get('saturday')
+                                .get('video_duration').errors.minlength
+                            "
+                            class="invalid-feedback-warning"
+                          >
+                            length should be 2
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr formGroupName="sunday">
+                      <td>
+                        <label class="checkbox">
+                          <input
+                            type="checkbox"
+                            formControlName="isAvailable"
+                            (ngModelChange)="changeAvailability($event, 'sunday')" />
+                          <span></span
+                        ></label>
+                      </td>
+                      <td>
+                        Sunday
+                      </td>
+                      <td>
+                        <ngb-timepicker
+                          formControlName="video_start_time"
+                          [spinners]="false"
+                        ></ngb-timepicker>
+                      </td>
+                      <td>
+                        <ngb-timepicker
+                          formControlName="video_end_time"
+                          [spinners]="false"
+                        ></ngb-timepicker>
+                      </td>
+                      <td>
+                        <input
+                          [class.is-invalid]="
+                            videoForm
+                              .get('availability')
+                              .get('sunday')
+                              .get('video_duration').invalid &&
+                            (videoForm
+                              .get('availability')
+                              .get('sunday')
+                              .get('video_duration').touched ||
+                              videoForm
+                                .get('availability')
+                                .get('sunday')
+                                .get('video_duration').dirty)
+                          "
+                          [class.is-valid]="
+                            !videoForm
+                              .get('availability')
+                              .get('sunday')
+                              .get('video_duration').invalid &&
+                            (videoForm
+                              .get('availability')
+                              .get('sunday')
+                              .get('video_duration').touched ||
+                              videoForm
+                                .get('availability')
+                                .get('sunday')
+                                .get('video_duration').dirty)
+                          "
+                          (keydown)="numericValidator($event)"
+                          type="text"
+                          placeholder="30"
+                          maxlength="2"
+                          minlength="2"
+                          formControlName="video_duration"
+                          class="form-control form-control-solid"
+                        />
+                        <div
+                          *ngIf="
+                            videoForm
+                              .get('availability')
+                              .get('sunday')
+                              .get('video_duration').invalid &&
+                            (videoForm
+                              .get('availability')
+                              .get('sunday')
+                              .get('video_duration').dirty ||
+                              videoForm
+                                .get('availability')
+                                .get('sunday')
+                                .get('video_duration').touched)
+                          "
+                        >
+                          <div
+                            *ngIf="
+                              videoForm
+                                .get('availability')
+                                .get('sunday')
+                                .get('video_duration').errors.required
+                            "
+                            class="invalid-feedback"
+                          >
+                            Please provide video duration
+                          </div>
+                          <div
+                            *ngIf="
+                              videoForm
+                                .get('availability')
+                                .get('sunday')
+                                .get('video_duration').errors.minlength
+                            "
+                            class="invalid-feedback-warning"
+                          >
+                            length should be 2
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

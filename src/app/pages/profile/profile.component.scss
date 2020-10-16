@@ -1,0 +1,51 @@
+@import "../../../assets/scss/_variables.scss";
+
+.profile {
+  margin-top: 6rem;
+  margin-bottom: 3rem;
+  &-basic {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1.5rem;
+    border-bottom: 1px dashed $text-muted;
+    &-image {
+      width: 10rem;
+      height: 10rem;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: 0.8rem;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    p {
+      margin: 0;
+    }
+  }
+  .nav {
+    &-tabs {
+      border: none;
+      padding: 1.5rem 0;
+    }
+    &-item{
+      margin-bottom: 0.3rem;
+    }
+    &-link {
+      color: $text-purple;
+      border: none;
+      transition: all 1s ease;
+      padding: 0.8rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      &:hover, &.active{
+        border: none;
+        background: $wave-grey;
+        color: $color-primary;
+      }
+    }
+  }
+}

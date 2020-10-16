@@ -1,0 +1,57 @@
+<div class="container profile">
+  <div class="row">
+    <div class="col-lg-3 mb-3">
+      <div class="card">
+        <div class="loading" *ngIf="loading">
+          <img src="../../../assets/images/loader.gif" alt="" />
+        </div>
+        <div class="card-body">
+          <div class="profile-basic">
+            <div class="profile-basic-image">
+              <img [src]="selectedDoctor?.image" alt="Doctor" />
+            </div>
+            <h6>{{ selectedDoctor?.name }}</h6>
+            <p>{{ selectedDoctor?.email }}</p>
+            <p class="text-center" >{{ selectedDoctor?.city }}, {{ selectedDoctor?.country }}</p>
+            <p>{{ selectedDoctor?.total_experience }} Yrs. Experience</p>
+          </div>
+          <div>
+            <ul
+              ngbNav
+              #nav="ngbNav"
+              [(activeId)]="active"
+              class="nav-tabs"
+              orientation="vertical"
+            >
+              <li *ngFor="let tab of tabs" [ngbNavItem]="tab.id">
+                <a ngbNavLink (click)="selectedTab = tab">
+                  {{ tab.title }}
+                </a>
+                <ng-template ngbNavContent>
+                  <app-personal-information
+                    *ngIf="tab.id === 1"
+                  ></app-personal-information>
+                  <app-education *ngIf="tab.id === 2"></app-education>
+                  <app-experience *ngIf="tab.id === 3"></app-experience>
+                  <app-awards *ngIf="tab.id === 4"></app-awards>
+                  <app-video-consultation
+                    *ngIf="tab.id === 5"
+                  ></app-video-consultation>
+                  <app-services *ngIf="tab.id === 6"></app-services>
+                  <app-security *ngIf="tab.id === 7"></app-security>
+                </ng-template>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-9">
+      <div class="loading" *ngIf="loading">
+        <p>Fetching data, please wait...</p>
+        <img src="../../../assets/images/loader.gif" alt="" />
+      </div>
+      <div [ngbNavOutlet]="nav"></div>
+    </div>
+  </div>
+</div>

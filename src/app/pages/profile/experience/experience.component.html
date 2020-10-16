@@ -1,0 +1,319 @@
+<div class="card experience">
+  <div class="loading" *ngIf="loading">
+    <img src="../../../../assets/images/loader.gif" alt="" />
+  </div>
+  <div class="card-header">
+    <h4>
+      Experience
+      <small>Change your experience settings</small>
+    </h4>
+    <div class="card-toolbar">
+      <button
+        type="button"
+        class="btn btn-primary btn-lg mr-2"
+        [disabled]="experienceForm.invalid"
+        (click)="updateForm()"
+      >
+        Update
+      </button>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-lg-9">
+        <!-- <div class="timeline">
+          <ng-container *ngFor="let item of timelineList">
+            <app-timeline-view
+              [item]="item"
+              (editEmitter)="editEducationEmitter($event)"
+            ></app-timeline-view>
+          </ng-container>
+        </div> -->
+        <form [formGroup]="experienceForm">
+          <div formArrayName="experience">
+            <div
+              class="experience-divider"
+              *ngFor="
+                let control of experienceForm['controls'].experience[
+                  'controls'
+                ];
+                let idx = index
+              "
+            >
+              <a
+                href="javascript:;"
+                placement="right"
+                ngbTooltip="Remove this section"
+                *ngIf="idx > 0"
+                (click)="removeAnother()"
+              >
+                <img src="../../../../../assets/icons/cross-green.svg" alt="" />
+              </a>
+              <div class="form-group row" formGroupName="{{ idx }}">
+                <label for="" class="col-sm-3 col-form-label"
+                  >Hospital Name
+                  <span class="text-danger" *ngIf="idx === 0">*</span></label
+                >
+                <div class="col-sm-9">
+                  <input
+                    pattern="^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$"
+                    [class.is-invalid]="
+                      getFormControls(idx).exp_hosp_name.invalid &&
+                      (getFormControls(idx).exp_hosp_name.dirty ||
+                        getFormControls(idx).exp_hosp_name.touched)
+                    "
+                    [class.is-valid]="
+                      !getFormControls(idx).exp_hosp_name.invalid &&
+                      (getFormControls(idx).exp_hosp_name.dirty ||
+                        getFormControls(idx).exp_hosp_name.touched)
+                    "
+                    (keydown)="textValidator($event)"
+                    type="text"
+                    name="exp_hosp_name"
+                    minlength="5"
+                    formControlName="exp_hosp_name"
+                    class="form-control form-control-solid form-control-lg"
+                  />
+                  <div
+                    *ngIf="
+                      getFormControls(idx).exp_hosp_name.invalid &&
+                      (getFormControls(idx).exp_hosp_name.dirty ||
+                        getFormControls(idx).exp_hosp_name.touched)
+                    "
+                  >
+                    <div
+                      *ngIf="getFormControls(idx).exp_hosp_name.errors.required"
+                      class="invalid-feedback"
+                    >
+                      Please provide hospital
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row" formGroupName="{{ idx }}">
+                <label for="" class="col-sm-3 col-form-label"
+                  >Designation
+                  <span class="text-danger" *ngIf="idx === 0">*</span></label
+                >
+                <div class="col-sm-9">
+                  <input
+                    pattern="^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$"
+                    [class.is-invalid]="
+                      getFormControls(idx).exp_desigination.invalid &&
+                      (getFormControls(idx).exp_desigination.dirty ||
+                        getFormControls(idx).exp_desigination.touched)
+                    "
+                    [class.is-valid]="
+                      !getFormControls(idx).exp_desigination.invalid &&
+                      (getFormControls(idx).exp_desigination.dirty ||
+                        getFormControls(idx).exp_desigination.touched)
+                    "
+                    (keydown)="textValidator($event)"
+                    type="text"
+                    name="exp_desigination"
+                    formControlName="exp_desigination"
+                    class="form-control form-control-solid form-control-lg"
+                  />
+                  <div
+                    *ngIf="
+                      getFormControls(idx).exp_desigination.invalid &&
+                      (getFormControls(idx).exp_desigination.dirty ||
+                        getFormControls(idx).exp_desigination.touched)
+                    "
+                  >
+                    <div
+                      *ngIf="
+                        getFormControls(idx).exp_desigination.errors.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Please provide designation
+                    </div>
+                    <div
+                      *ngIf="
+                        getFormControls(idx).exp_desigination.errors.minlength
+                      "
+                      class="invalid-feedback-warning"
+                    >
+                      Minimum charactors length should be 5
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row" formGroupName="{{ idx }}">
+                <label for="" class="col-sm-3 col-form-label"
+                  >Start Date
+                  <span class="text-danger" *ngIf="idx === 0">*</span></label
+                >
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <img
+                          src="../../../../../assets/icons/calendar.svg"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <input
+                      [class.is-invalid]="
+                        getFormControls(idx).exp_start_date.invalid &&
+                        (getFormControls(idx).exp_start_date.dirty ||
+                          getFormControls(idx).exp_start_date.touched)
+                      "
+                      [class.is-valid]="
+                        !getFormControls(idx).exp_start_date.invalid &&
+                        (getFormControls(idx).exp_start_date.dirty ||
+                          getFormControls(idx).exp_start_date.touched)
+                      "
+                      [maxDate]="
+                        maxDateRange(getFormControls(idx).exp_end_date.value)
+                      "
+                      formControlName="exp_start_date"
+                      class="form-control form-control-solid form-control-lg"
+                      name="dp"
+                      ngbDatepicker
+                      #start="ngbDatepicker"
+                      [minDate]="minDate"
+                      [maxDate]="maxDate"
+                      (click)="start.toggle()"
+                      readonly
+                    />
+                  </div>
+                  <div
+                    *ngIf="
+                      getFormControls(idx).exp_start_date.invalid &&
+                      (getFormControls(idx).exp_start_date.dirty ||
+                        getFormControls(idx).exp_start_date.touched)
+                    "
+                  >
+                    <div
+                      *ngIf="
+                        getFormControls(idx).exp_start_date.errors.required
+                      "
+                      class="invalid-feedback"
+                    >
+                      Please provide start date
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row" formGroupName="{{ idx }}">
+                <label for="" class="col-sm-3 col-form-label"
+                  >End Date
+                  <span class="text-danger" *ngIf="idx === 0">*</span></label
+                >
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <img
+                          src="../../../../../assets/icons/calendar.svg"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <input
+                      [class.is-invalid]="
+                        getFormControls(idx).exp_end_date.invalid &&
+                        (getFormControls(idx).exp_end_date.dirty ||
+                          getFormControls(idx).exp_end_date.touched)
+                      "
+                      [class.is-valid]="
+                        !getFormControls(idx).exp_end_date.invalid &&
+                        (getFormControls(idx).exp_end_date.dirty ||
+                          getFormControls(idx).exp_end_date.touched)
+                      "
+                      [minDate]="
+                        minDateRange(getFormControls(idx).exp_start_date.value)
+                      "
+                      formControlName="exp_end_date"
+                      class="form-control form-control-solid form-control-lg"
+                      name="dp"
+                      ngbDatepicker
+                      #end="ngbDatepicker"
+                      (click)="end.toggle()"
+                      readonly
+                    />
+                  </div>
+                  <div
+                    *ngIf="
+                      getFormControls(idx).exp_end_date.invalid &&
+                      (getFormControls(idx).exp_end_date.dirty ||
+                        getFormControls(idx).exp_end_date.touched)
+                    "
+                  >
+                    <div
+                      *ngIf="getFormControls(idx).exp_end_date.errors.required"
+                      class="invalid-feedback"
+                    >
+                      Please provide end date
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row" formGroupName="{{ idx }}">
+                <label for="" class="col-sm-3 col-form-label"
+                  >Country
+                  <span class="text-danger" *ngIf="idx === 0">*</span></label
+                >
+                <div class="col-sm-9">
+                  <input
+                    pattern="^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$"
+                    [class.is-invalid]="
+                      getFormControls(idx).exp_country.invalid &&
+                      (getFormControls(idx).exp_country.dirty ||
+                        getFormControls(idx).exp_country.touched)
+                    "
+                    [class.is-valid]="
+                      !getFormControls(idx).exp_country.invalid &&
+                      (getFormControls(idx).exp_country.dirty ||
+                        getFormControls(idx).exp_country.touched)
+                    "
+                    (keydown)="textValidator($event)"
+                    type="text"
+                    name="exp_country"
+                    formControlName="exp_country"
+                    class="form-control form-control-solid form-control-lg"
+                  />
+                  <div
+                    *ngIf="
+                      getFormControls(idx).exp_country.invalid &&
+                      (getFormControls(idx).exp_country.dirty ||
+                        getFormControls(idx).exp_country.touched)
+                    "
+                  >
+                    <div
+                      *ngIf="getFormControls(idx).exp_country.errors.required"
+                      class="invalid-feedback"
+                    >
+                      Please provide country
+                    </div>
+                    <div
+                      *ngIf="getFormControls(idx).exp_country.errors.minlength"
+                      class="invalid-feedback-warning"
+                    >
+                      Minimum length should be 5
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-12 d-flex justify-content-end mb-3">
+                <button
+                  type="button"
+                  class="btn btn-lg btn-light-primary mr-2"
+                  [disabled]="experienceForm.status.toLowerCase() == 'invalid'"
+                  (click)="addAnother()"
+                >
+                  Add another experience
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

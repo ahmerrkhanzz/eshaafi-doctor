@@ -1,0 +1,651 @@
+<div class="personal">
+  <div class="card">
+    <div class="loading" *ngIf="loading">
+      <img src="../../../../assets/images/loader.gif" alt="" />
+    </div>
+    <div class="card-header">
+      <h4>
+        Personal Information
+        <small>Change your personal settings</small>
+      </h4>
+      <div class="card-toolbar">
+        <button
+          type="button"
+          class="btn btn-primary btn-lg mr-2"
+          [disabled]="personalInformationForm.invalid"
+          (click)="updateForm()"
+        >
+          Update
+        </button>
+        <!-- <button type="button" class="btn btn-default btn-lg" (click)="patchFormValues(this.selectedDoctor)">Cancel</button> -->
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-lg-9">
+          <form [formGroup]="personalInformationForm">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label text-left"
+                >Picture <span class="text-danger">*</span></label
+              >
+              <div class="col-sm-9">
+                <div class="image-input image-input-outline">
+                  <div
+                    class="image-input-wrapper"
+                    style="background-image: url({{preview}})"
+                  ></div>
+                  <label
+                    class="btn btn-xs btn-circle"
+                    data-action="change"
+                    data-toggle="tooltip"
+                    title=""
+                    data-original-title="Change avatar"
+                  >
+                    <i class="fa fa-pen icon-sm text-muted"></i>
+                    <input
+                      type="file"
+                      accept=".png, .jpg, .jpeg"
+                      (change)="handleFileInput($event)"
+                    />
+                    <input type="hidden" name="profile_avatar_remove" />
+                  </label>
+                  <span
+                    class="btn btn-xs btn-circle btn-cancel-image"
+                    data-action="cancel"
+                    data-toggle="tooltip"
+                    title=""
+                    data-original-title="Cancel avatar"
+                    (click)="cancelAvatar()"
+                  >
+                    <i class="fas fa-times icon-sm text-muted"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="" class="col-sm-3 col-form-label"
+                >Name <span class="text-danger">*</span></label
+              >
+              <div class="col-sm-9">
+                <input
+                  [class.is-invalid]="
+                    personalInformationFormControls.name.invalid &&
+                    (personalInformationFormControls.name.dirty ||
+                      personalInformationFormControls.name.touched)
+                  "
+                  [class.is-valid]="
+                    !personalInformationFormControls.name.invalid &&
+                    (personalInformationFormControls.name.dirty ||
+                      personalInformationFormControls.name.touched)
+                  "
+                  (keydown)="textValidator($event)"
+                  type="text"
+                  maxlength="25"
+                  formControlName="name"
+                  class="form-control form-control-solid"
+                />
+                <div
+                  *ngIf="
+                    personalInformationFormControls.name.invalid &&
+                    (personalInformationFormControls.name.dirty ||
+                      personalInformationFormControls.name.touched)
+                  "
+                >
+                  <div
+                    *ngIf="personalInformationFormControls.name.errors.required"
+                    class="invalid-feedback"
+                  >
+                    Please provide name
+                  </div>
+                  <div
+                    *ngIf="
+                      personalInformationFormControls.name.errors.minlength
+                    "
+                    class="invalid-feedback-warning"
+                  >
+                    Minimum charactors length should be 5
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="" class="col-sm-3 col-form-label"
+                >Email <span class="text-danger">*</span></label
+              >
+              <div class="col-sm-9">
+                <div class="input-group">
+                  <input
+                    [class.is-invalid]="
+                      personalInformationForm.get('email').invalid &&
+                      (personalInformationForm.get('email').touched ||
+                        personalInformationForm.get('email').dirty)
+                    "
+                    [class.is-valid]="
+                      !personalInformationForm.get('email').invalid &&
+                      (personalInformationForm.get('email').touched ||
+                        personalInformationForm.get('email').dirty)
+                    "
+                    type="text"
+                    formControlName="email"
+                    class="form-control form-control-solid"
+                  />
+                  <div class="input-group-append">
+                    <div class="input-group-text">@eshaafi.com</div>
+                  </div>
+                </div>
+                <div
+                  *ngIf="
+                    personalInformationFormControls.email.invalid &&
+                    (personalInformationFormControls.email.dirty ||
+                      personalInformationFormControls.email.touched)
+                  "
+                >
+                  <div
+                    *ngIf="
+                      personalInformationFormControls.email.errors.required
+                    "
+                    class="invalid-feedback"
+                  >
+                    Please provide email
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="" class="col-sm-3 col-form-label"
+                >Phone <span class="text-danger">*</span></label
+              >
+              <div class="col-sm-9">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">+92</div>
+                  </div>
+                  <input
+                    [class.is-invalid]="
+                      personalInformationFormControls.phone.invalid &&
+                      (personalInformationFormControls.phone.dirty ||
+                        personalInformationFormControls.phone.touched)
+                    "
+                    [class.is-valid]="
+                      !personalInformationFormControls.phone.invalid &&
+                      (personalInformationFormControls.phone.dirty ||
+                        personalInformationFormControls.phone.touched)
+                    "
+                    type="text"
+                    minlength="10"
+                    maxlength="10"
+                    placeholder="Phone No."
+                    (keydown)="numericValidator($event)"
+                    formControlName="phone"
+                    class="form-control form-control-solid"
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    personalInformationFormControls.phone.invalid &&
+                    (personalInformationFormControls.phone.dirty ||
+                      personalInformationFormControls.phone.touched)
+                  "
+                >
+                  <div
+                    *ngIf="
+                      personalInformationFormControls.phone.errors.required
+                    "
+                    class="invalid-feedback"
+                  >
+                    Please provide phone number
+                  </div>
+                  <div
+                    *ngIf="
+                      personalInformationFormControls.phone.errors.minlength
+                    "
+                    class="invalid-feedback-warning"
+                  >
+                    Invalid phone number
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="" class="col-sm-3 col-form-label"
+                >Date of birth</label
+              >
+              <div class="col-sm-9">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <img
+                        src="../../../../../assets/icons/calendar.svg"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                  <input
+                    [class.is-invalid]="
+                      personalInformationFormControls.date_of_birth.invalid &&
+                      personalInformationFormControls.date_of_birth.value &&
+                      (personalInformationFormControls.date_of_birth.dirty ||
+                        personalInformationFormControls.date_of_birth.touched)
+                    "
+                    [class.is-valid]="
+                      !personalInformationFormControls.date_of_birth.invalid &&
+                      personalInformationFormControls.date_of_birth.value &&
+                      (personalInformationFormControls.date_of_birth.dirty ||
+                        personalInformationFormControls.date_of_birth.touched)
+                    "
+                    class="form-control form-control-solid"
+                    placeholder="yyyy-mm-dd"
+                    name="dp"
+                    ngbDatepicker
+                    formControlName="date_of_birth"
+                    #d="ngbDatepicker"
+                    [minDate]="minDate"
+                    [maxDate]="maxDate"
+                    [(ngModel)]="dob"
+                    (click)="d.toggle()"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="" class="col-sm-3 col-form-label"
+                >Country <span class="text-danger">*</span></label
+              >
+              <div class="col-sm-9">
+                <input
+                  [class.is-invalid]="
+                    personalInformationFormControls.country.invalid &&
+                    (personalInformationFormControls.country.dirty ||
+                      personalInformationFormControls.country.touched)
+                  "
+                  [class.is-valid]="
+                    !personalInformationFormControls.country.invalid &&
+                    (personalInformationFormControls.country.dirty ||
+                      personalInformationFormControls.country.touched)
+                  "
+                  (keydown)="textValidator($event)"
+                  type="text"
+                  name="country"
+                  maxlength="25"
+                  formControlName="country"
+                  class="form-control form-control-solid"
+                />
+                <div
+                  *ngIf="
+                    personalInformationFormControls.country.invalid &&
+                    (personalInformationFormControls.country.dirty ||
+                      personalInformationFormControls.country.touched)
+                  "
+                >
+                  <div
+                    *ngIf="
+                      personalInformationFormControls.country.errors.required
+                    "
+                    class="invalid-feedback"
+                  >
+                    Please provide country
+                  </div>
+                  <div
+                    *ngIf="
+                      personalInformationFormControls.country.errors.minlength
+                    "
+                    class="invalid-feedback-warning"
+                  >
+                    Minimum length should be 5
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="" class="col-sm-3 col-form-label"
+                >City <span class="text-danger">*</span></label
+              >
+              <div class="col-sm-9">
+                <input
+                  [class.is-invalid]="
+                    personalInformationFormControls.city.invalid &&
+                    (personalInformationFormControls.city.dirty ||
+                      personalInformationFormControls.city.touched)
+                  "
+                  [class.is-valid]="
+                    !personalInformationFormControls.city.invalid &&
+                    (personalInformationFormControls.city.dirty ||
+                      personalInformationFormControls.city.touched)
+                  "
+                  (keydown)="textValidator($event)"
+                  type="text"
+                  name="city"
+                  maxlength="25"
+                  formControlName="city"
+                  class="form-control form-control-solid"
+                />
+                <div
+                  *ngIf="
+                    personalInformationFormControls.city.invalid &&
+                    (personalInformationFormControls.city.dirty ||
+                      personalInformationFormControls.city.touched)
+                  "
+                >
+                  <div
+                    *ngIf="personalInformationFormControls.city.errors.required"
+                    class="invalid-feedback"
+                  >
+                    Please provide city
+                  </div>
+                  <div
+                    *ngIf="
+                      personalInformationFormControls.city.errors.minlength
+                    "
+                    class="invalid-feedback-warning"
+                  >
+                    Minimum length should be 5
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="" class="col-sm-3 col-form-label"
+                >Address <span class="text-danger">*</span></label
+              >
+              <div class="col-sm-9">
+                <input
+                  [class.is-invalid]="
+                    personalInformationFormControls.address.invalid &&
+                    (personalInformationFormControls.address.dirty ||
+                      personalInformationFormControls.address.touched)
+                  "
+                  [class.is-valid]="
+                    !personalInformationFormControls.address.invalid &&
+                    (personalInformationFormControls.address.dirty ||
+                      personalInformationFormControls.address.touched)
+                  "
+                  type="text"
+                  maxlength="40"
+                  formControlName="address"
+                  class="form-control form-control-solid"
+                />
+                <div
+                  *ngIf="
+                    personalInformationFormControls.address.invalid &&
+                    (personalInformationFormControls.address.dirty ||
+                      personalInformationFormControls.address.touched)
+                  "
+                >
+                  <div
+                    *ngIf="
+                      personalInformationFormControls.address.errors.required
+                    "
+                    class="invalid-feedback"
+                  >
+                    Please provide address
+                  </div>
+                  <div
+                    *ngIf="
+                      personalInformationFormControls.address.errors.minlength
+                    "
+                    class="invalid-feedback-warning"
+                  >
+                    Minimum charactors length should be 10
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row custom-multiselect">
+              <label for="" class="col-sm-3 col-form-label"
+                >Language <span class="text-danger">*</span></label
+              >
+              <div class="col-sm-9">
+                <ng-multiselect-dropdown
+                  [class.is-invalid]="
+                    personalInformationFormControls.language.invalid &&
+                    (personalInformationFormControls.language.dirty ||
+                      personalInformationFormControls.language.touched)
+                  "
+                  [class.is-valid]="
+                    !personalInformationFormControls.language.invalid &&
+                    (personalInformationFormControls.language.dirty ||
+                      personalInformationFormControls.language.touched)
+                  "
+                  [placeholder]="'Please Select'"
+                  [settings]="dropdownSettings"
+                  [data]="languages"
+                  formControlName="language"
+                  [(ngModel)]="selectedLanguages"
+                  (onSelect)="onItemSelect($event)"
+                  (onSelectAll)="onSelectAll($event)"
+                >
+                </ng-multiselect-dropdown>
+                <div
+                  *ngIf="
+                    personalInformationFormControls.language.invalid &&
+                    (personalInformationFormControls.language.dirty ||
+                      personalInformationFormControls.language.touched)
+                  "
+                >
+                  <div
+                    *ngIf="
+                      personalInformationFormControls.language.errors.required
+                    "
+                    class="invalid-feedback"
+                  >
+                    Please select language
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="" class="col-sm-3 col-form-label"
+                >Speciality <span class="text-danger">*</span></label
+              >
+              <div class="col-sm-9 custom-multiselect">
+                <div
+                  [ngClass]="{
+                    'overflow-hidden':
+                      personalInformationFormControls.is_instant.value
+                  }"
+                >
+                  <ng-multiselect-dropdown
+                    [disabled]="
+                      personalInformationFormControls.is_instant.value
+                    "
+                    [class.is-invalid]="
+                      personalInformationFormControls.speciality.invalid &&
+                      (personalInformationFormControls.speciality.dirty ||
+                        personalInformationFormControls.speciality.touched)
+                    "
+                    [class.is-valid]="
+                      !personalInformationFormControls.speciality.invalid &&
+                      (personalInformationFormControls.speciality.dirty ||
+                        personalInformationFormControls.speciality.touched)
+                    "
+                    [placeholder]="'Please Select'"
+                    [settings]="dropdownSettings"
+                    [data]="specialities"
+                    formControlName="speciality"
+                    [(ngModel)]="selectedSpecialities"
+                    (onSelect)="onItemSelect($event)"
+                    (onSelectAll)="onSelectAll($event)"
+                  >
+                  </ng-multiselect-dropdown>
+                </div>
+                <div
+                  *ngIf="
+                    personalInformationFormControls.speciality.invalid &&
+                    (personalInformationFormControls.speciality.dirty ||
+                      personalInformationFormControls.speciality.touched)
+                  "
+                >
+                  <div
+                    *ngIf="
+                      personalInformationFormControls.speciality.errors.required
+                    "
+                    class="invalid-feedback"
+                  >
+                    Please select speciality
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="" class="col-sm-3 col-form-label"
+                >Is Instant Doctor? <span class="text-danger">*</span></label
+              >
+              <div class="col-sm-9">
+                <div class="radio-list radio-list-linear">
+                  <label class="radio mr-3" for="yes"
+                    >Yes
+                    <input
+                      id="yes"
+                      type="radio"
+                      [value]="true"
+                      name="is_instant"
+                      formControlName="is_instant"
+                      (change)="changeInstant($event)"
+                    />
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="radio mr-3" for="no"
+                    >No
+                    <input
+                      type="radio"
+                      id="no"
+                      [value]="false"
+                      name="is_instant"
+                      formControlName="is_instant"
+                      (change)="changeInstant($event)"
+                    />
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+                <div
+                  *ngIf="
+                    personalInformationFormControls.is_instant.invalid &&
+                    (personalInformationFormControls.is_instant.dirty ||
+                      personalInformationFormControls.is_instant.touched)
+                  "
+                >
+                  <div
+                    *ngIf="
+                      personalInformationFormControls.is_instant.errors.required
+                    "
+                    class="invalid-feedback"
+                  >
+                    Please select instant
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="" class="col-sm-3 col-form-label"
+                >Gender <span class="text-danger">*</span></label
+              >
+              <div class="col-sm-9">
+                <div class="radio-list radio-list-linear">
+                  <label class="radio mr-3" for="male"
+                    >Male
+                    <input
+                      id="male"
+                      type="radio"
+                      value="male"
+                      name="gender"
+                      formControlName="gender"
+                    />
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="radio mr-3" for="female"
+                    >Female
+                    <input
+                      type="radio"
+                      id="female"
+                      value="female"
+                      name="gender"
+                      formControlName="gender"
+                    />
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="radio" for="other"
+                    >Not Specified
+                    <input
+                      type="radio"
+                      id="other"
+                      value="other"
+                      name="gender"
+                      formControlName="gender"
+                    />
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+                <div
+                  *ngIf="
+                    personalInformationFormControls.gender.invalid &&
+                    (personalInformationFormControls.gender.dirty ||
+                      personalInformationFormControls.gender.touched)
+                  "
+                >
+                  <div
+                    *ngIf="
+                      personalInformationFormControls.gender.errors.required
+                    "
+                    class="invalid-feedback"
+                  >
+                    Please select gender
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="" class="col-sm-3 col-form-label"
+                >Summary <span class="text-danger">*</span></label
+              >
+              <div class="col-sm-9">
+                <textarea
+                  [class.is-invalid]="
+                    personalInformationFormControls.summary.invalid &&
+                    (personalInformationFormControls.summary.dirty ||
+                      personalInformationFormControls.summary.touched)
+                  "
+                  [class.is-valid]="
+                    !personalInformationFormControls.summary.invalid &&
+                    (personalInformationFormControls.summary.dirty ||
+                      personalInformationFormControls.summary.touched)
+                  "
+                  name=""
+                  id=""
+                  cols="30"
+                  rows="10"
+                  formControlName="summary"
+                  class="form-control form-control-solid"
+                ></textarea>
+                <div
+                  *ngIf="
+                    personalInformationFormControls.summary.invalid &&
+                    (personalInformationFormControls.summary.dirty ||
+                      personalInformationFormControls.summary.touched)
+                  "
+                >
+                  <div
+                    *ngIf="
+                      personalInformationFormControls.summary.errors.required
+                    "
+                    class="invalid-feedback"
+                  >
+                    Please provide summary
+                  </div>
+                  <div
+                    *ngIf="
+                      personalInformationFormControls.summary.errors.minlength
+                    "
+                    class="invalid-feedback-warning"
+                  >
+                    Minimum charactors length should be 20
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

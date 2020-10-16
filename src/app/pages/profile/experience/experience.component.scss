@@ -1,0 +1,87 @@
+@import "../../../../assets/scss/_variables.scss";
+.experience {
+  min-height: 698.76px;
+  &-divider{
+    border-bottom: 1px dashed $border-grey;
+    margin-bottom: 2rem;
+    position: relative;
+    > a {
+      display: flex;
+      position: absolute;
+      right: -3rem;
+      z-index: 9;
+      top: -1rem;
+      img {
+        width: 2rem;
+      }
+    }
+  }
+  // CALENDAR
+  ::ng-deep.dropdown-menu {
+    background: #fff;
+    border: none;
+    box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);
+    padding-top: 0.7rem;
+    .ngb-dp-header,
+    .ngb-dp-weekdays {
+      background: #fff;
+      border: none;
+      .ngb-dp-arrow {
+        .btn-link {
+          color: $text-grey;
+          padding: 0 0.5rem !important;
+          &:hover {
+            background: $light-grey;
+          }
+          &:focus {
+            outline: 0 !important;
+          }
+          .ngb-dp-navigation-chevron {
+            border-width: 0.1em 0.1em 0 0;
+          }
+        }
+      }
+      select,
+      &:focus {
+        border: none !important;
+      }
+    }
+    .ngb-dp-month {
+      .ngb-dp-week {
+        .ngb-dp-weekday {
+          color: $text-dark;
+          font-weight: 600;
+          font-style: unset !important;
+        }
+        .ngb-dp-day {
+          width: 2.5rem;
+          height: 2.5rem;
+          font-size: 0.9rem !important;
+          .btn-light {
+            color: $text-grey !important;
+            width: 2.5rem !important;
+            height: 2.5rem !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &:hover {
+              background-color: $light-grey;
+              border-color: $light-grey;
+            }
+          }
+          .bg-primary {
+            background-color: $color-primary-light !important;
+            color: $color-primary !important;
+            font-weight: 300;
+          }
+        }
+      }
+    }
+    ::ng-deep .ngb-dp-day,
+    ::ng-deep .ngb-dp-week-number,
+    ::ng-deep .ngb-dp-weekday {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+}

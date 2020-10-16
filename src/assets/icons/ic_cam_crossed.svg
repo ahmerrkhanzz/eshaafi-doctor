@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 54 54">
+  <g id="ic_cam_crossed" transform="translate(-686 -874)">
+    <circle id="Ellipse_261" data-name="Ellipse 261" cx="27" cy="27" r="27" transform="translate(686 874)" fill="#fb2828"/>
+    <path id="Icon_material-videocam-off" data-name="Icon material-videocam-off" d="M29.618,9.3l-5.6,5.6V10a1.405,1.405,0,0,0-1.4-1.4H13.955L29.618,24.266ZM4.779,3,3,4.779,6.825,8.6H5.8A1.405,1.405,0,0,0,4.4,10V24.014a1.405,1.405,0,0,0,1.4,1.4H22.613a1.358,1.358,0,0,0,.757-.252l4.469,4.455,1.779-1.779Z" transform="translate(696.592 884.691)" fill="#fff"/>
+  </g>
+</svg>

@@ -1,0 +1,112 @@
+<div class="card">
+  <div class="loading" *ngIf="loading">
+    <img src="../../../../../assets/images/loader.gif" alt="" />
+  </div>
+  <div class="card-body">
+    <a href="javascript:;" class="close" (click)="close()">
+      <svg
+        enable-background="new 0 0 100 100"
+        id="Layer_1"
+        version="1.1"
+        viewBox="0 0 100 100"
+        xml:space="preserve"
+        xmlns="http://www.w3.org/2000/svg"
+        width="30px"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+      >
+        <polygon
+          fill="#00b8ae"
+          points="77.6,21.1 49.6,49.2 21.5,21.1 19.6,23 47.6,51.1 19.6,79.2 21.5,81.1 49.6,53 77.6,81.1 79.6,79.2   51.5,51.1 79.6,23 "
+        />
+      </svg>
+    </a>
+
+    <div class="form-container">
+      <div class="form-container-title">
+        <h3>Upload Prescription</h3>
+      </div>
+
+      <div class="row">
+        <label class="radio-inline pr-5">
+          <input
+            name="type"
+            [(ngModel)]="type"
+            type="radio"
+            [value]="1"
+            [checked]="options"
+          />
+          Image
+        </label>
+
+        <label class="radio-inline">
+          <input
+            name="type"
+            [(ngModel)]="type"
+            type="radio"
+            [value]="0"
+            [checked]="!options"
+          />
+          PDF
+        </label>
+      </div>
+
+      <div class="imageLibrary" *ngIf="type == 1">
+        <div
+          class="custom-dropzone"
+          ngx-dropzone
+          [accept]="'image/*'"
+          (change)="onSelect($event)"
+        >
+          <ngx-dropzone-label>
+            <div>
+              <img src="../../../../../assets/icons/ic_upload.svg" alt="" />
+            </div>
+          </ngx-dropzone-label>
+          <ngx-dropzone-image-preview
+            ngProjectAs="ngx-dropzone-preview"
+            *ngFor="let f of files"
+            [file]="f"
+            [removable]="true"
+            (removed)="onRemove(f)"
+          >
+          </ngx-dropzone-image-preview>
+        </div>
+      </div>
+
+      <div *ngIf="type == 0" class="pdfLibrary">
+        <file-upload
+          [control]="fileUploadControl"
+          [accept]="'.pdf'"
+          (change)="onSelectPDF()"
+          [(ngModel)]="uploadedFile"
+          ><ng-template
+            let-i="index"
+            let-file="file"
+            let-control="control"
+            #item
+          >
+            <file-upload-list-item [index]="i" [file]="file" [control]="control"
+              ><button removeFile (click)="onRemovePDF(i)">
+                <i class="fa fa-trash"></i></button
+            ></file-upload-list-item> </ng-template
+        ></file-upload>
+      </div>
+
+      <div class="row prescription" *ngIf="showEPrescription">
+        <div class="col-sm-12">
+          <h4 class="text-center mb-5">OR</h4>
+          <a class="text-primary" href="javascript:;" (click)="openPrescriptionModal()">Generate Prescription</a>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <div class="row">
+          <button class="btn btn-light-primary mr-4" (click)="close()">
+            Cancel
+          </button>
+          <button class="btn btn-light-primary" (click)="submit()">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,356 @@
+<div class="card awards">
+  <div class="loading" *ngIf="loading">
+    <img src="../../../../assets/images/loader.gif" alt="" />
+  </div>
+  <div class="card-header">
+    <h4>
+      Awards
+      <small>Change your awards settings</small>
+    </h4>
+    <div class="card-toolbar">
+      <button
+        type="button"
+        class="btn btn-primary btn-lg mr-2"
+        (click)="updateForm()"
+        [disabled]="awardsForm.invalid"
+      >
+        Update
+      </button>
+      <!-- <button
+        type="button"
+        class="btn btn-default btn-lg"
+        (click)="cancelForm()"
+      >
+        Cancel
+      </button> -->
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-lg-9">
+        <!-- <div class="timeline">
+          <ng-container *ngFor="let item of timelineList">
+            <app-timeline-view
+              [item]="item"
+              (editEmitter)="editEmitter($event)"
+            ></app-timeline-view>
+          </ng-container>
+        </div> -->
+        <form [formGroup]="awardsForm">
+          <div formArrayName="awards">
+            <div
+              class="awards-divider"
+              *ngFor="
+                let control of awardsForm['controls'].awards['controls'];
+                let idx = index
+              "
+            >
+              <a
+                href="javascript:;"
+                placement="right"
+                ngbTooltip="Remove this section"
+                *ngIf="idx > 0"
+                (click)="removeAnother()"
+              >
+                <img src="../../../../../assets/icons/cross-green.svg" alt="" />
+              </a>
+              <div class="form-group row" formGroupName="{{ idx }}">
+                <label for="" class="col-sm-3 col-form-label">Achievement</label>
+                <div class="col-sm-9">
+                  <input
+                    pattern="^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$"
+                    [class.is-invalid]="
+                      getFormControls(idx).award_achivements.invalid &&
+                      getFormControls(idx).award_achivements.value &&
+                      (getFormControls(idx).award_achivements.dirty ||
+                        getFormControls(idx).award_achivements.touched)
+                    "
+                    [class.is-valid]="
+                      !getFormControls(idx).award_achivements.invalid &&
+                      getFormControls(idx).award_achivements.value &&
+                      (getFormControls(idx).award_achivements.dirty ||
+                        getFormControls(idx).award_achivements.touched)
+                    "
+                    (keydown)="textValidator($event)"
+                    type="text"
+                    formControlName="award_achivements"
+                    class="form-control form-control-solid form-control-lg"
+                  />
+                  <div
+                    *ngIf="
+                      getFormControls(idx).award_achivements.invalid &&
+                      (getFormControls(idx).award_achivements.dirty ||
+                        getFormControls(idx).award_achivements.touched)
+                    "
+                  >
+                    <div
+                      *ngIf="getFormControls(idx).award_achivements.errors.required"
+                      class="invalid-feedback"
+                    >
+                      Please provide achievement
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row" formGroupName="{{ idx }}">
+                <label for="" class="col-sm-3 col-form-label">Event Name</label>
+                <div class="col-sm-9">
+                  <input
+                    pattern="^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$"
+                    [class.is-invalid]="
+                      getFormControls(idx).award_event_name.invalid &&
+                      getFormControls(idx).award_event_name.value &&
+                      (getFormControls(idx).award_event_name.dirty ||
+                        getFormControls(idx).award_event_name.touched)
+                    "
+                    [class.is-valid]="
+                      !getFormControls(idx).award_event_name.invalid &&
+                      getFormControls(idx).award_event_name.value &&
+                      (getFormControls(idx).award_event_name.dirty ||
+                        getFormControls(idx).award_event_name.touched)
+                    "
+                    (keydown)="textValidator($event)"
+                    type="text"
+                    formControlName="award_event_name"
+                    class="form-control form-control-solid form-control-lg"
+                  />
+                  <div
+                    *ngIf="
+                      getFormControls(idx).award_event_name.invalid &&
+                      (getFormControls(idx).award_event_name.dirty ||
+                        getFormControls(idx).award_event_name.touched)
+                    "
+                  >
+                    <div
+                      *ngIf="getFormControls(idx).award_event_name.errors.required"
+                      class="invalid-feedback"
+                    >
+                      Please provide event
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row" formGroupName="{{ idx }}">
+                <label for="" class="col-sm-3 col-form-label">Designation</label>
+                <div class="col-sm-9">
+                  <input
+                    pattern="^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$"
+                    [class.is-invalid]="
+                      getFormControls(idx).award_desigination.invalid &&
+                      getFormControls(idx).award_desigination.value &&
+                      (getFormControls(idx).award_desigination.dirty ||
+                        getFormControls(idx).award_desigination.touched)
+                    "
+                    [class.is-valid]="
+                      !getFormControls(idx).award_desigination.invalid &&
+                      getFormControls(idx).award_desigination.value &&
+                      (getFormControls(idx).award_desigination.dirty ||
+                        getFormControls(idx).award_desigination.touched)
+                    "
+                    (keydown)="textValidator($event)"
+                    type="text"
+                    formControlName="award_desigination"
+                    class="form-control form-control-solid form-control-lg"
+                  />
+                  <div
+                    *ngIf="
+                      getFormControls(idx).award_desigination.invalid &&
+                      (getFormControls(idx).award_desigination.dirty ||
+                        getFormControls(idx).award_desigination.touched)
+                    "
+                  >
+                    <div
+                      *ngIf="getFormControls(idx).award_desigination.errors.required"
+                      class="invalid-feedback"
+                    >
+                      Please provide designation
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row" formGroupName="{{ idx }}">
+                <label for="" class="col-sm-3 col-form-label"
+                  >Award <span class="text-danger" *ngIf="idx === 0">*</span></label
+                >
+                <div class="col-sm-9">
+                  <input
+                    pattern="^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$"
+                    [class.is-invalid]="
+                      getFormControls(idx).award_recive_award.invalid &&
+                      (getFormControls(idx).award_recive_award.dirty ||
+                        getFormControls(idx).award_recive_award.touched)
+                    "
+                    [class.is-valid]="
+                      !getFormControls(idx).award_recive_award.invalid &&
+                      (getFormControls(idx).award_recive_award.dirty ||
+                        getFormControls(idx).award_recive_award.touched)
+                    "
+                    (keydown)="textValidator($event)"
+                    type="text"
+                    formControlName="award_recive_award"
+                    class="form-control form-control-solid form-control-lg"
+                  />
+                  <div
+                    *ngIf="
+                      getFormControls(idx).award_recive_award.invalid &&
+                      (getFormControls(idx).award_recive_award.dirty ||
+                        getFormControls(idx).award_recive_award.touched)
+                    "
+                  >
+                    <div
+                      *ngIf="getFormControls(idx).award_recive_award.errors.required"
+                      class="invalid-feedback"
+                    >
+                      Please provide awards
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row" formGroupName="{{ idx }}">
+                <label for="" class="col-sm-3 col-form-label">Recieved From</label>
+                <div class="col-sm-9">
+                  <input
+                    [class.is-invalid]="
+                      getFormControls(idx).award_recive_from.invalid &&
+                      getFormControls(idx).award_recive_from.value &&
+                      (getFormControls(idx).award_recive_from.dirty ||
+                        getFormControls(idx).award_recive_from.touched)
+                    "
+                    [class.is-valid]="
+                      !getFormControls(idx).award_recive_from.invalid &&
+                      getFormControls(idx).award_recive_from.value &&
+                      (getFormControls(idx).award_recive_from.dirty ||
+                        getFormControls(idx).award_recive_from.touched)
+                    "
+                    (keydown)="textValidator($event)"
+                    type="text"
+                    formControlName="award_recive_from"
+                    class="form-control form-control-solid form-control-lg"
+                  />
+                  <div
+                    *ngIf="
+                      getFormControls(idx).award_recive_from.invalid &&
+                      (getFormControls(idx).award_recive_from.dirty ||
+                        getFormControls(idx).award_recive_from.touched)
+                    "
+                  >
+                    <div
+                      *ngIf="getFormControls(idx).award_recive_from.errors.required"
+                      class="invalid-feedback"
+                    >
+                      Please provide from whome did you recieve
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row" formGroupName="{{ idx }}">
+                <label for="" class="col-sm-3 col-form-label"
+                  >Year <span class="text-danger" *ngIf="idx === 0">*</span></label
+                >
+                <div class="col-sm-9">
+                  <input
+                    [class.is-invalid]="
+                      getFormControls(idx).award_recived_dated.invalid &&
+                      (getFormControls(idx).award_recived_dated.dirty ||
+                        getFormControls(idx).award_recived_dated.touched)
+                    "
+                    [class.is-valid]="
+                      !getFormControls(idx).award_recived_dated.invalid &&
+                      (getFormControls(idx).award_recived_dated.dirty ||
+                        getFormControls(idx).award_recived_dated.touched)
+                    "
+                    (keydown)="numericValidator($event)"
+                    type="text"
+                    maxlength="4"
+                    minlength4
+                    formControlName="award_recived_dated"
+                    class="form-control form-control-solid form-control-lg"
+                  />
+                  <div
+                    *ngIf="
+                      getFormControls(idx).award_recived_dated.invalid &&
+                      (getFormControls(idx).award_recived_dated.dirty ||
+                        getFormControls(idx).award_recived_dated.touched)
+                    "
+                  >
+                    <div
+                      *ngIf="getFormControls(idx).award_recived_dated.errors.required"
+                      class="invalid-feedback"
+                    >
+                      Please provide year
+                    </div>
+                    <div
+                      *ngIf="
+                        getFormControls(idx).award_recived_dated.errors.minlength
+                      "
+                      class="invalid-feedback-warning"
+                    >
+                      Length should be 4
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row" formGroupName="{{ idx }}">
+                <label for="" class="col-sm-3 col-form-label">Country</label>
+                <div class="col-sm-9">
+                  <input
+                    pattern="^\S$|^\S[\s\S](?!.* {2})[\s\S]*\S$"
+                    [class.is-invalid]="
+                      getFormControls(idx).award_country.invalid &&
+                      getFormControls(idx).award_country.value &&
+                      (getFormControls(idx).award_country.dirty ||
+                        getFormControls(idx).award_country.touched)
+                    "
+                    [class.is-valid]="
+                      !getFormControls(idx).award_country.invalid &&
+                      getFormControls(idx).award_country.value &&
+                      (getFormControls(idx).award_country.dirty ||
+                        getFormControls(idx).award_country.touched)
+                    "
+                    (keydown)="textValidator($event)"
+                    type="text"
+                    name="award_country"
+                    formControlName="award_country"
+                    class="form-control form-control-solid form-control-lg"
+                  />
+                  <div
+                    *ngIf="
+                      getFormControls(idx).award_country.invalid &&
+                      (getFormControls(idx).award_country.dirty ||
+                        getFormControls(idx).award_country.touched)
+                    "
+                  >
+                    <div
+                      *ngIf="getFormControls(idx).award_country.errors.required"
+                      class="invalid-feedback"
+                    >
+                      Please provide country
+                    </div>
+                    <div
+                      *ngIf="getFormControls(idx).award_country.errors.minlength"
+                      class="invalid-feedback-warning"
+                    >
+                      Minimum length should be 5
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-12 d-flex justify-content-end mb-3">
+              <button
+                type="button"
+                class="btn btn-lg btn-light-primary mr-2"
+                [disabled]="awardsForm.status.toLowerCase() == 'invalid'"
+                (click)="addAnother()"
+              >
+                Add another award
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 54 54">
+  <g id="ic_mic" transform="translate(-792 -811)">
+    <circle id="Ellipse_150" data-name="Ellipse 150" cx="27" cy="27" r="27" transform="translate(792 811)" fill="#fff"/>
+    <g id="Icon_ionic-ios-mic" data-name="Icon ionic-ios-mic" transform="translate(812 825)">
+      <path id="Path_3227" data-name="Path 3227" d="M17.625,21.939h0a4.137,4.137,0,0,0,4.125-4.125V7.5a4.137,4.137,0,0,0-4.125-4.125h0A4.137,4.137,0,0,0,13.5,7.5V17.813A4.137,4.137,0,0,0,17.625,21.939Z" transform="translate(-10.535 -3.375)"/>
+      <path id="Path_3228" data-name="Path 3228" d="M23.544,13.5a.905.905,0,0,0-.9.9V18.85a5.286,5.286,0,1,1-10.571,0V14.4a.9.9,0,1,0-1.8,0V18.85a7.1,7.1,0,0,0,6.188,7.032v3.345h-2.32a.9.9,0,0,0,0,1.8h6.446a.9.9,0,0,0,0-1.8h-2.32V25.882a7.1,7.1,0,0,0,6.188-7.032V14.4A.905.905,0,0,0,23.544,13.5Z" transform="translate(-10.266 -4.218)"/>
+    </g>
+  </g>
+</svg>

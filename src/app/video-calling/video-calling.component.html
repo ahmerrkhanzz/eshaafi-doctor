@@ -1,0 +1,57 @@
+<main class="calling_bg">
+  <div class="jumbotron vertical-center">
+    <div class="container videoBox">
+      <div [id]="localCallId" class="local"></div>
+
+      <div
+        *ngFor="let callId of remoteCalls"
+        [id]="callId"
+        class="remote"
+      ></div>
+
+      <div
+        *ngIf="isVisible"
+        [style.display]="isVisible ? 'block' : 'none'"
+        class="calling_screen"
+      >
+        <div class="text-center" *ngFor="let patient of patients">
+          <img
+            src="../../assets/icons/ic_patient_call.svg"
+            alt=""
+            class="img-responsive"
+          />
+          <h1>{{ patient.name }}</h1>
+        </div>
+      </div>
+
+      <div *ngFor="let entry of entries" class="d-flex videoBox__timer">
+        <div>{{ entry.id }}</div>
+        <div>
+          <span *ngIf="getElapsedTime(entry) as elapsed">
+            {{ elapsed.minutes }}m
+            {{ elapsed.seconds }}s
+          </span>
+        </div>
+      </div>
+
+      <div class="action_buttons">
+        <button class="btn btn-primary" (click)="audioCall()">
+          <img src="../../assets/icons/ic_mic_crossed.svg" *ngIf="mic_on" /><img
+            src="../../assets/icons/ic_mic.svg"
+            *ngIf="!mic_on"
+          />
+        </button>
+        <button class="btn btn-primary" (click)="videoCall()">
+          <img src="../../assets/icons/ic_cam_crossed.svg" *ngIf="cam_on" /><img
+            src="../../assets/icons/ic_cam.svg"
+            *ngIf="!cam_on"
+          />
+        </button>
+
+        <button type="button" class="btn btn-primary" (click)="callEnd()">
+          <img src="../../assets/icons/ic_cal_clk.svg" alt="" />
+        </button>
+      </div>
+    </div>
+  </div>
+</main>

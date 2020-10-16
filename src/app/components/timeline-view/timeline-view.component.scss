@@ -1,0 +1,83 @@
+@import '../../../assets/scss/_variables.scss';
+
+.timeline {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &-item {
+      display: flex;
+      position: relative;
+      margin-bottom: 1.7rem;
+      &-label {
+        width: 100px;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        font-size: 1rem;
+        font-weight: 600;
+        position: relative;
+        color: #3f4254;
+      }
+      &-content {
+        font-weight: 500;
+        color: $text-grey;
+      }
+    }
+    &:before {
+      content: "";
+      position: absolute;
+      left: 100.5px;
+      width: 4px;
+      top: 0;
+      bottom: 0;
+      background-color: #ebedf3;
+    }
+    &-badge {
+      flex-shrink: 0;
+      background: #fff;
+      width: 13px;
+      height: 13px;
+      border-radius: 100%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      z-index: 1;
+      position: relative;
+      margin-top: 1px;
+      margin-left: -0.5rem;
+      padding: 3px !important;
+      border: 6px solid #fff !important;
+      i {
+        font-size: 1.75rem;
+      }
+    }
+    &-action{
+      display: flex;
+      a {
+        color: $text-muted;
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.2rem;
+        font-size: 0.8rem;
+        border: none;
+        svg {
+          width: 1.5rem;
+        }
+        &:hover {
+          background: transparent;
+          .st0 {
+            fill: $color-primary;
+          }
+        }
+      }
+    }
+  }
+  

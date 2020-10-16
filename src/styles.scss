@@ -1,0 +1,42 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+@import "./assets/scss/_variables.scss";
+@import "./assets/scss/_base.scss";
+body,
+html {
+  font-family: "Poppins", sans-serif;
+  // font-family: "Open Sans", sans-serif;
+  font-size: 0.9rem;
+  background: $bg-grey;
+  height: 100%;
+}
+
+.toast-container .ngx-toastr {
+  border: none;
+  box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);
+  border-radius: 0.42rem;
+}
+.toast-container .ngx-toastr:hover {
+  border: none;
+  box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);
+  border-radius: 0.42rem;
+}
+.toast-success {
+  background-color: #e1f0ff;
+  color: #00578c !important;
+}
+.toast-error {
+  background-color: #fee9ec;
+  color: #f64e60 !important;
+}
+
+#toast-container > .toast-success {
+  background-image: url(./assets/icons/check_new.png) !important;
+}
+@media only screen and (min-width: 1200px) {
+  .container {
+    max-width: 1340px;
+  }
+}
